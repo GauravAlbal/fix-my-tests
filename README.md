@@ -13,14 +13,41 @@ what can break?
 → keep / fix / add / delete / move
 ```
 
-It is a read-only Agent Skill. It inspects the repository and gives you a verification plan; it does not rewrite your tests.
+It is a read-only [Agent Skill](https://agentskills.io/). It inspects the repository and gives you a bounded verification diagnosis; it does not rewrite your tests.
+
+## Try it now — no install
+
+Paste this into a repo-aware coding agent that can read web links:
+
+```text
+Use Fix My Tests on this repository.
+
+Read the current skill at:
+https://github.com/GauravAlbal/fix-my-tests/tree/main/fix-my-tests
+
+Start with SKILL.md and obey the required sibling references. Work read-only.
+Preserve my exact question. Derive the material product risks before inspecting
+my tests. For each risk, derive the failure mechanism and the evidence capability
+that could actually expose it. Then qualify the current tests, including whether
+their oracle is independent of the implementation they judge.
+
+Tell me what to keep, fix, add, delete, downgrade, or move. Return at most five
+first moves, answer my question at an explicit evidence boundary, and choose one
+first-repair exit. Do not claim the repository is safe.
+
+My question:
+<put your test-system question here>
+```
+
+If your agent cannot read the linked skill, install it once instead.
 
 ## Use it when
 
 - Claude, Codex, or another agent generated a pile of tests and you do not know which ones matter.
 - The suite is green but you do not trust it.
 - CI is slow or flaky and you want to remove tests safely.
-- The tests are heavily mocked and you are unsure what they prove.
+- The tests are heavily mocked or implementation-coupled and you are unsure what they prove.
+- Generated tests appear to reproduce the implementation's own logic in their expected answers.
 - A vibe-coded project is approaching production.
 - You are not sure what should block a merge, run later, or disappear entirely.
 
@@ -77,48 +104,58 @@ Add one check at the real provider boundary.
 
 Fix My Tests can also conclude that a test is useful, that deletion is unsafe, or that the available evidence is not enough to decide.
 
-## Install
+## Install as an Agent Skill
 
-Clone the repository:
+The Agent Skills artifact is the [`fix-my-tests/`](fix-my-tests/) directory. The repository root just carries the README, license, and project material around it.
 
-```sh
-git clone https://github.com/GauravAlbal/fix-my-tests.git
-cd fix-my-tests
-```
+Agent Skills defines the skill format, not one universal install location. Point your client's skill discovery root at that directory.
 
-For Agent Skills-compatible clients that discover user skills under `~/.agents/skills/`:
+For clients that discover user skills under `~/.agents/skills/`:
 
 ```sh
+git clone --depth 1 https://github.com/GauravAlbal/fix-my-tests.git \
+  "$HOME/.local/share/fix-my-tests"
 mkdir -p "$HOME/.agents/skills"
-ln -s "$PWD/fix-my-tests" "$HOME/.agents/skills/fix-my-tests"
+ln -s "$HOME/.local/share/fix-my-tests/fix-my-tests" \
+  "$HOME/.agents/skills/fix-my-tests"
 ```
 
 For OMP (Oh My Pi):
 
 ```sh
+git clone --depth 1 https://github.com/GauravAlbal/fix-my-tests.git \
+  "$HOME/.local/share/fix-my-tests"
 mkdir -p "$HOME/.omp/agent/skills"
-ln -s "$PWD/fix-my-tests" "$HOME/.omp/agent/skills/fix-my-tests"
+ln -s "$HOME/.local/share/fix-my-tests/fix-my-tests" \
+  "$HOME/.omp/agent/skills/fix-my-tests"
 ```
 
-Restart the client after installation so it reloads skill metadata.
+Restart the client after first install so it reloads skill metadata.
 
-## Run it
+To update later, pull the same checkout; no relinking is needed:
 
-Ask a repo-aware agent a normal question. For example:
+```sh
+git -C "$HOME/.local/share/fix-my-tests" pull --ff-only
+```
+
+If you already cloned the repository elsewhere, skip the clone and symlink that checkout's `fix-my-tests/` directory into your client's discovery root.
+
+## Run it after installation
+
+Ask a normal repo-level question. For example:
 
 ```text
-Review this repository with Fix My Tests.
+Use Fix My Tests on this repo.
 
-I have about 600 mostly AI-generated tests. Which ones are
-protecting something important, what am I missing, and what
-can I safely delete?
+I have about 600 mostly AI-generated tests. Which ones are protecting
+something important, what am I missing, and what can I safely delete?
 ```
 
 Or:
 
 ```text
-Use Fix My Tests on this repo. The suite is green, but most of
-it is mocked and I do not trust it. What evidence do I actually have?
+Use Fix My Tests on this repo. The suite is green, but most of it is mocked
+and I do not trust it. What evidence do I actually have?
 ```
 
 The skill preserves your question and answers it at an explicit evidence boundary.
@@ -136,23 +173,43 @@ product behavior
 → smallest sufficient portfolio
 ```
 
-Three rules do most of the work:
+Five rules do most of the work:
 
 1. **A real test can still be the wrong kind of evidence.** A unit test may be perfectly falsifiable and still be unable to expose a crash, race, wire-protocol mismatch, or other failure at a different seam.
-2. **Hard invariants are noncompensatory.** Lots of easy green tests cannot make up for one uncovered authorization, durability, or other must-not-break property.
-3. **Deletion must preserve evidence.** A test is only safe to remove when the material evidence it uniquely provides survives somewhere else.
+2. **The oracle needs an independent basis.** A test that recomputes its expected answer from the same implementation can detect change without independently establishing correctness.
+3. **Characterization is not automatically correctness.** A fixed old baseline can prove an explicit preservation claim; it does not prove the old behavior was right merely because it existed.
+4. **Interactions sometimes are the failure mechanism.** When bugs depend on combinations of flags, roles, versions, or configuration factors, use bounded t-way/combinatorial evidence rather than pretending a few examples are systematic coverage.
+5. **Deletion must preserve evidence.** A test is only safe to remove when the material evidence it uniquely provides survives somewhere else.
+
+Hard invariants remain noncompensatory: lots of easy greens cannot make up for one uncovered authorization, durability, or other must-not-break property.
 
 For the full method, see [`PROTOCOL.md`](fix-my-tests/PROTOCOL.md) and [`RISK_METHOD_MATRIX.md`](fix-my-tests/RISK_METHOD_MATRIX.md).
+
+## Agent Skills format
+
+`fix-my-tests/` follows the open [Agent Skills specification](https://agentskills.io/specification):
+
+- the parent directory and frontmatter `name` are both `fix-my-tests`;
+- `SKILL.md` supplies the required `name` and activation-oriented `description`;
+- license and string metadata use standard optional frontmatter fields;
+- the main `SKILL.md` stays small and points to relative resources only when the deeper protocol is needed;
+- the protocol, sitting template, run prompt, and verification map remain resources inside the skill directory.
+
+Maintainers can validate the package with the reference validator documented by Agent Skills:
+
+```sh
+skills-ref validate ./fix-my-tests
+```
 
 ## Files
 
 | File | Purpose |
 | --- | --- |
-| [`SKILL.md`](fix-my-tests/SKILL.md) | Agent Skill entry point |
-| [`PROTOCOL.md`](fix-my-tests/PROTOCOL.md) | Full analysis procedure |
-| [`RISK_METHOD_MATRIX.md`](fix-my-tests/RISK_METHOD_MATRIX.md) | Failure mechanism → evidence method guide |
+| [`SKILL.md`](fix-my-tests/SKILL.md) | Agent Skill entry point and activation metadata |
+| [`PROTOCOL.md`](fix-my-tests/PROTOCOL.md) | Full bounded analysis procedure |
+| [`RISK_METHOD_MATRIX.md`](fix-my-tests/RISK_METHOD_MATRIX.md) | Failure mechanism → evidence capability and qualification law |
 | [`SIT.md`](fix-my-tests/SIT.md) | Structured analysis output |
-| [`RUN_PROMPT.md`](fix-my-tests/RUN_PROMPT.md) | Standalone execution prompt |
+| [`RUN_PROMPT.md`](fix-my-tests/RUN_PROMPT.md) | Standalone execution constraints |
 | [`VERIFICATION_MAP.md`](fix-my-tests/VERIFICATION_MAP.md) | Risk → evidence implementation map |
 
 ## Limits
