@@ -45,13 +45,13 @@ Work against the actual repository state.
 21. Pass-after-fail retry is evidence of flake/instrument invalidity, not a clean pass.
 22. If a claim requires a real seam, a mock of that seam does not establish it.
 23. Preserve `UNKNOWN` rather than inventing risk, method, severity, likelihood, oracle independence, or cadence facts.
-24. CI/hooks/Moat/GitHub Actions are execution substrates, not the ontology. Inspect them after evidence semantics when binding/cadence matters.
+24. CI, hooks, hosted workflows, and release/nightly/live checks are execution substrates, not the ontology. Inspect them after evidence semantics when binding/cadence matters.
 25. Internal/local gates and hosted CI are equally valid if they reliably bind the required evidence.
 26. Answer the operator separately from the first repair class. Use `ANSWERED | NEEDS_MORE_EVIDENCE` plus an explicit evidence scope; do not hide boundedness behind generic `PARTIAL`.
 27. Return at most five first moves; usually fewer.
 28. Do not invent savings, defect rates, flake rates, or operator time.
-29. Do not modify code, tests, hooks, workflows, CI, tasks, pearls, or tracked files in this sitting.
-30. Delegation is read-only. Child agents may inspect/search only. If the delegation mechanism cannot guarantee no writes, no task/pearl creation, no submission, and no acceptance side effects, **do not delegate**.
+29. Do not modify code, tests, hooks, workflows, CI, tasks, or tracked files in this sitting.
+30. Delegation is read-only. Child agents may inspect/search only. If the delegation mechanism cannot guarantee no writes, no task creation, no submission, and no acceptance side effects, **do not delegate**.
 31. Choose exactly one first-repair exit and stop. `NO_MATERIAL_CHANGE` is legal only when no consequential non-`KEEP` disposition is justified.
 
 ## Evidence collection order
