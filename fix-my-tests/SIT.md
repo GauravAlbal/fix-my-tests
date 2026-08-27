@@ -1,4 +1,4 @@
-# Fix My Tests — live sit v0.5.0
+# Fix My Tests — live sit v0.6.0
 
 Copy per sitting. One repo / one bounded test-system question. Read-only.
 
@@ -54,7 +54,7 @@ lenses_considered:
   - state_lifecycle:
   - persistence_crash:
   - boundary_real_seam:
-  - input_space:
+  - input_space_factor_interactions:
   - concurrency_ordering:
   - resource_performance:
   - statistical_model_quality:
@@ -78,9 +78,9 @@ If the method derivation is not defensible, mark the required capability `UNKNOW
 
 ## Existing evidence mapping + qualification
 
-| Evidence | Risk | Intended claim | Claim map | Falsifiable | Oracle | Method fit | Real seam | Instrument | Current provenance | Qualification |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| EV- | RA- |  | ESTABLISHED / PARTIAL / NONE / UNKNOWN | VALID / HOLLOW / UNKNOWN | RIGHT / WRONG / UNKNOWN | RIGHT / WRONG / UNKNOWN | YES / NO / N/A / UNKNOWN | VALID / INVALID / UNAVAILABLE / UNKNOWN | YES / NO / UNKNOWN | QUALIFIED / PARTIAL / UNQUALIFIED / UNKNOWN |
+| Evidence | Risk | Intended claim | Claim map | Falsifiable | Oracle | Oracle independence | Method fit | Real seam | Instrument | Current provenance | Qualification |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| EV- | RA- |  | ESTABLISHED / PARTIAL / NONE / UNKNOWN | VALID / HOLLOW / UNKNOWN | RIGHT / WRONG / UNKNOWN | ESTABLISHED / COMMON_MODE / UNKNOWN | RIGHT / WRONG / UNKNOWN | YES / NO / N/A / UNKNOWN | VALID / INVALID / UNAVAILABLE / UNKNOWN | YES / NO / UNKNOWN | QUALIFIED / PARTIAL / UNQUALIFIED / UNKNOWN |
 
 Allowed defect findings:
 
@@ -88,6 +88,9 @@ Allowed defect findings:
 CLAIM_MAPPING_GAP
 HOLLOW
 WRONG_ORACLE
+COMMON_MODE_ORACLE
+CHANGE_DETECTOR
+TEST_LOGIC_UNVERIFIED
 WRONG_METHOD
 REAL_SEAM_UNTESTED
 INSTRUMENT_INVALID
@@ -99,6 +102,19 @@ UNKNOWN
 ```
 
 A passing `UNQUALIFIED` row contributes zero blocking authority to its risk.
+
+### Characterization note
+
+If an evidence row uses a captured baseline/snapshot/golden, state the actual claim it can support:
+
+```yaml
+characterization:
+  baseline_authority:
+  preservation_claim:
+  correctness_claim_supported: YES | NO | UNKNOWN
+```
+
+Matching an old implementation is not automatically proof that the old behavior was correct.
 
 ## Portfolio reconciliation
 
