@@ -55,6 +55,10 @@ Open a **Fix My Tests dogfood request** issue with a repository revision and a p
 
 Read [Assurance-first sequence](notes/ASSURANCE_FIRST_SEQUENCE.md) for the progression from one wrong-method test to risk-first diagnosis, exact-change assurance, a bounded retrofit, and demand-gated repeated acceptance.
 
+## When diagnosis becomes implementation
+
+If a sitting identifies material wrong-method or missing-evidence work and the operator wants it installed, see the bounded [Verification Retrofit founding pilot](VERIFICATION_RETROFIT.md). The pilot is a commercial experiment, not validated demand or pricing.
+
 ## Boundaries
 
 Fix My Tests diagnoses the evidence portfolio. It does not implement tests, repair CI, gate changes, prove the repository safe, estimate defect reduction, or infer customer demand. Model agreement is not evidence authority.
