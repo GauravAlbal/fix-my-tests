@@ -1,6 +1,6 @@
 # Fix My Tests — risk / method kernel
 
-**Status:** normative for Fix My Tests v0.6.0. This is a bounded RACS kernel, not the Arq Assurance Planner and not a universal risk catalog.
+**Status:** normative for Fix My Tests v0.6.0. This is a bounded RACS kernel, not a universal risk catalog or an exhaustive assurance-planning engagement.
 
 ## Governing law
 
@@ -288,4 +288,4 @@ Broaden risk discovery using requirements, public interfaces, state machines, hi
 
 ### Stop rule
 
-Stop when the bounded risk register is sufficient to change the requested decision and the uncertainty boundary is explicit. Do not turn the free dogfood into an exhaustive Arq assurance program.
+Stop when the bounded risk register is sufficient to change the requested decision and the uncertainty boundary is explicit. Do not turn a bounded sitting into an exhaustive assurance program.

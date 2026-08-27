@@ -195,10 +195,10 @@ For the full method, see [`PROTOCOL.md`](fix-my-tests/PROTOCOL.md) and [`RISK_ME
 - the main `SKILL.md` stays small and points to relative resources only when the deeper protocol is needed;
 - the protocol, sitting template, run prompt, and verification map remain resources inside the skill directory.
 
-Maintainers can validate the package with the reference validator documented by Agent Skills:
+Maintainers with [`uv`](https://docs.astral.sh/uv/) can run the Agent Skills reference validator without a permanent install:
 
 ```sh
-skills-ref validate ./fix-my-tests
+uvx --from skills-ref agentskills validate ./fix-my-tests
 ```
 
 ## Files
