@@ -24,6 +24,8 @@ It is a read-only Agent Skill. It inspects the repository and gives you a verifi
 - A vibe-coded project is approaching production.
 - You are not sure what should block a merge, run later, or disappear entirely.
 
+If your question is smaller—**“does this one test actually prove this one claim?”**—use [`proof`](https://github.com/GauravAlbal/agent-skills/tree/main/proof) from [The Kit](https://github.com/GauravAlbal/agent-skills). Fix My Tests is for when the test system itself becomes the problem.
+
 ## The idea
 
 Most test reviews start with the test suite. Fix My Tests starts with the product.
