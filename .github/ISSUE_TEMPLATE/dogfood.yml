@@ -1,0 +1,50 @@
+name: Fix My Tests dogfood request
+description: Request a bounded, read-only verification-portfolio sitting
+title: "Dogfood: "
+labels:
+  - dogfood
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Fix My Tests starts from product risks, not test files. A sitting is read-only and returns a bounded risk/evidence map plus a few first moves. It does not certify that the repository is safe.
+  - type: input
+    id: repository
+    attributes:
+      label: Repository
+      description: Public URL, or say private and describe how access can be arranged.
+    validations:
+      required: true
+  - type: input
+    id: revision
+    attributes:
+      label: Revision
+      description: Commit SHA or immutable revision to inspect.
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Plain-language question
+      description: What feels wrong about the tests, or what must be tested before you trust the software?
+    validations:
+      required: true
+  - type: textarea
+    id: stakes
+    attributes:
+      label: Product stakes and important surfaces
+      description: Users, money, data, external services, persistence, concurrency, model quality, or other consequential seams.
+  - type: textarea
+    id: boundary
+    attributes:
+      label: Scope boundary
+      description: Anything the sitting must not inspect or disclose.
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Public evidence consent
+      options:
+        - label: I understand the sitting is read-only and not a safety certification.
+          required: true
+        - label: I consent to the issue and resulting bounded report remaining public.
+          required: true

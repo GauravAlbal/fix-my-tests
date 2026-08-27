@@ -45,6 +45,15 @@ Give a repo-aware coding/review agent `fix-my-tests/RUN_PROMPT.md` and the repos
 - `RISK_METHOD_MATRIX.md` — normative risk/evidence kernel.
 - `SIT.md` — reusable output template.
 - `RUN_PROMPT.md` — standalone execution prompt.
+- `VERIFICATION_MAP.md` — implementation-ready risk → method → drive → oracle → receipt template.
+
+## Request a dogfood sitting
+
+Open a **Fix My Tests dogfood request** issue with a repository revision and a plain-language question. Public sittings are bounded and read-only. The report may identify missing or invalid evidence; it will not certify that the software is safe.
+
+## Why this sequence
+
+Read [Assurance-first sequence](notes/ASSURANCE_FIRST_SEQUENCE.md) for the progression from one wrong-method test to risk-first diagnosis, exact-change assurance, a bounded retrofit, and demand-gated repeated acceptance.
 
 ## Boundaries
 
