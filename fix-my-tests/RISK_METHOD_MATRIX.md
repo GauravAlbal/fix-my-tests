@@ -1,6 +1,6 @@
 # Fix My Tests — risk / method kernel
 
-**Status:** normative for Fix My Tests v0.5.0. This is a bounded RACS kernel, not the Arq Assurance Planner and not a universal risk catalog.
+**Status:** normative for Fix My Tests v0.6.0. This is a bounded RACS kernel, not the Arq Assurance Planner and not a universal risk catalog.
 
 ## Governing law
 
@@ -34,7 +34,7 @@ For each consequential product surface, scan the applicable lenses below. Do not
 | **State / lifecycle** | What state may become impossible, duplicated, stale, skipped, or terminal incorrectly? | illegal transition, double apply, resurrection, lost terminal state |
 | **Persistence / crash** | What must survive process death or partial commit? | lost intent, torn state, false durability, unrecoverable journal |
 | **Boundary / real seam** | Where does correctness depend on another process, DB, filesystem, network, provider, serializer, or CLI? | contract drift, wrong argv/wire shape, mock-only confidence |
-| **Input space** | What valid breadth or malformed/adversarial shape can examples miss? | parser edge, combinatorial case, malformed acceptance |
+| **Input space** | What valid breadth, malformed shape, or factor/configuration interaction can examples miss? | parser edge, combinatorial case, malformed acceptance, configuration-only failure |
 | **Concurrency / ordering** | What can interleave, race, duplicate, reorder, or starve? | lost update, double spend, deadlock, order violation |
 | **Resource / performance** | What fails only near a named capacity, latency, memory, quota, or exhaustion boundary? | tail blowup, OOM, queue collapse, timeout cascade |
 | **Statistical / model quality** | What is distributional rather than pointwise? | regression hidden by anecdotes, calibration drift, unstable rank |
@@ -51,6 +51,9 @@ Verification-system risks include:
 ```text
 HOLLOW_ORACLE
 WRONG_ORACLE
+COMMON_MODE_ORACLE
+CHANGE_DETECTOR
+TEST_LOGIC_UNVERIFIED
 WRONG_METHOD
 REAL_SEAM_REPLACED_BY_MOCK
 FLAKE
@@ -102,9 +105,10 @@ Choose the capability that can expose the mechanism. Test framework names are im
 | Failure mechanism | Default evidence capability | Common wrong substitute |
 | --- | --- | --- |
 | `PURE_BEHAVIOR` | focused example; property when the domain has meaningful algebra/breadth | giant end-to-end test for a pure function |
-| `BROAD_INPUT_SPACE` | property/generative testing; differential/metamorphic when an oracle exists | a few handpicked examples |
+| `BROAD_INPUT_SPACE` | property/generative testing; differential/metamorphic when an independent relation/reference exists | a few handpicked examples |
+| `COMBINATORIAL_INTERACTION` | covering array / pairwise or higher-strength t-way interaction coverage, plus targeted property/negative cases where needed | a few examples or unguided random generation with no interaction-coverage claim |
 | `MALFORMED_INPUT` | negative property + fuzz/adversarial corpus | happy-path unit examples |
-| `WEAK_ORACLE` | mutation, negative control, differential or metamorphic evidence | more cases using the same weak oracle |
+| `WEAK_ORACLE` | mutation, negative control, independent differential reference, or metamorphic evidence | more cases using the same weak/common-mode oracle |
 | `REAL_INTERFACE` | contract/integration against the real protocol or faithful executable seam | mocking the interface being claimed |
 | `PERSISTENCE_OR_CRASH` | deterministic fault injection + recovery/durability assertion | clean-shutdown integration test |
 | `STATE_MACHINE` | stateful property/model checking or exhaustive transition evidence for bounded state | isolated point examples only |
@@ -129,6 +133,12 @@ Would a stronger method add unique material evidence worth its friction?
 
 If the first answer is weak, method assignment is not established.
 
+### Combinatorial-interaction law
+
+Use `COMBINATORIAL_INTERACTION` only when the material defect requires an interaction among independently varying factors such as flags, roles, versions, configuration options, environment dimensions, protocol modes, or feature combinations.
+
+A covering array makes a bounded **t-way interaction coverage** claim. It is not exhaustive correctness evidence, and pairwise coverage must not be rounded up to higher-strength coverage without evidence.
+
 ---
 
 # 4. Evidence qualification
@@ -142,6 +152,7 @@ evidence:
   claim_mapping: ESTABLISHED | PARTIAL | NONE | UNKNOWN
   falsifiability: VALID | HOLLOW | UNKNOWN
   oracle: RIGHT | WRONG | UNKNOWN
+  oracle_independence: ESTABLISHED | COMMON_MODE | UNKNOWN
   method_fit: RIGHT | WRONG | UNKNOWN
   real_seam: YES | NO | N/A | UNKNOWN
   instrument: VALID | INVALID | UNAVAILABLE | UNKNOWN
@@ -149,7 +160,7 @@ evidence:
   qualification: QUALIFIED | PARTIAL | UNQUALIFIED | UNKNOWN
 ```
 
-`QUALIFIED` requires all applicable authority dimensions to be established.
+`QUALIFIED` requires all applicable authority dimensions to be established. `COMMON_MODE` cannot produce blocking `QUALIFIED` evidence for a correctness claim.
 
 Typical rejection reasons:
 
@@ -157,6 +168,9 @@ Typical rejection reasons:
 CLAIM_MAPPING_GAP
 HOLLOW
 WRONG_ORACLE
+COMMON_MODE_ORACLE
+CHANGE_DETECTOR
+TEST_LOGIC_UNVERIFIED
 WRONG_METHOD
 REAL_SEAM_UNTESTED
 INSTRUMENT_INVALID
@@ -168,6 +182,33 @@ UNATTRIBUTABLE_FAILURE
 A passing result from `UNQUALIFIED` evidence contributes **zero blocking authority** to the risk claim.
 
 `PARTIAL` may be useful diagnostic evidence, but it does not satisfy a hard invariant by itself.
+
+## Oracle-independence law
+
+`ESTABLISHED` means the expected distinction between right and wrong is grounded independently of the candidate implementation: for example an explicit requirement/invariant, an accepted external reference, a fixed prior accepted baseline for a preservation claim, an independently derived model, or a valid metamorphic relation.
+
+`COMMON_MODE` means the oracle or expected interaction is materially derived from the same implementation it is supposed to judge. Examples:
+
+- the test reimplements the production algorithm to calculate the expected output;
+- an AI-generated test mirrors the candidate's branch structure and calls that expected behavior;
+- a strict mock sequence mechanically restates the current call graph when that sequence is not itself the product claim;
+- a snapshot/golden is regenerated from the same candidate and then used as correctness proof.
+
+`UNKNOWN` means the basis cannot be established.
+
+### Characterization boundary
+
+A captured baseline can be legitimate evidence for a claim such as **“this accepted behavior did not change”** when the baseline revision/artifact is explicitly the authority and is independent of the candidate under test.
+
+The same baseline does not establish **“this behavior is correct”** merely because it records what the old implementation happened to do. Characterization is descriptive until a requirement, invariant, accepted baseline policy, or other authority makes preservation normative.
+
+### Change-detector boundary
+
+A test that fails on implementation changes but has no material behavior/structural claim is a `CHANGE_DETECTOR`, not valuable coverage. Strict interaction testing is valid when the interaction itself is the material claim—for example exactly-once side effect, order-dependent protocol, or bounded resource call—not merely because the current implementation happens to make those calls.
+
+### Test-logic boundary
+
+Do not ban loops, conditionals, helpers, builders, or generated expectations categorically. But if test-side logic is complex enough that the expected result or failure path cannot be independently verified by inspection or its own qualified evidence, mark `TEST_LOGIC_UNVERIFIED`; instrument validity and/or oracle independence remain `UNKNOWN` until resolved.
 
 ---
 
@@ -215,7 +256,7 @@ A “mechanism-diverse sample” is not established by choosing tests that look 
 Use this order:
 
 1. derive a bounded risk register from product surfaces and independent discovery lenses;
-2. select evidence spanning distinct **risk rows / mechanisms**, prioritizing hard invariants, high-materiality risks, expensive/flaky tests, generated tests, and suspicious seams;
+2. select evidence spanning distinct **risk rows / mechanisms**, prioritizing hard invariants, high-materiality risks, expensive/flaky tests, generated tests, suspicious seams, and likely common-mode oracles;
 3. qualify those tests;
 4. state exactly which risk rows were and were not sampled.
 
@@ -243,7 +284,7 @@ Derive only the 3–7 consequential risks/hard invariants visible from the produ
 
 ### Mature repo
 
-Broaden risk discovery using requirements, public interfaces, state machines, history/incidents, external seams, and execution tiers. Portfolio subtraction requires stronger claim/risk mapping than representative quality review.
+Broaden risk discovery using requirements, public interfaces, state machines, history/incidents, external seams, execution tiers, and material configuration/factor interactions. Portfolio subtraction requires stronger claim/risk mapping than representative quality review.
 
 ### Stop rule
 
