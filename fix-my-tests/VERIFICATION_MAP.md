@@ -14,9 +14,9 @@ portfolio_prevalence: ESTABLISHED | NOT_ESTABLISHED
 
 ## Risk-to-evidence map
 
-| Risk | Product surface | Bad outcome | Obligation | Positive claim / invariant | Failure mechanism | Required evidence capability | Drive recipe | Oracle | Receipt / provenance | Cadence / binding | Current status |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| RA- |  |  | HARD_INVARIANT / MATERIAL / DEFERRED / UNKNOWN |  |  |  | exact inputs, fault, schedule, or external interaction | authority that can distinguish right from wrong | revision, environment, command/probe identity, result | MANUAL / EVERY_CHANGE / MERGE / RELEASE / NIGHTLY / LIVE / OTHER | COVERED / UNDERCOVERED / GAP / INVALID / REDUNDANT / DEFERRED / UNKNOWN |
+| Risk | Product surface | Bad outcome | Obligation | Positive claim / invariant | Failure mechanism | Required evidence capability | Drive recipe | Oracle | Oracle independence | Receipt / provenance | Cadence / binding | Current status |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| RA- |  |  | HARD_INVARIANT / MATERIAL / DEFERRED / UNKNOWN |  |  |  | exact inputs, fault, schedule, factor interaction, or external interaction | authority that can distinguish right from wrong | ESTABLISHED / COMMON_MODE / UNKNOWN | revision, environment, command/probe identity, result | MANUAL / EVERY_CHANGE / MERGE / RELEASE / NIGHTLY / LIVE / OTHER | COVERED / UNDERCOVERED / GAP / INVALID / REDUNDANT / DEFERRED / UNKNOWN |
 
 ## Row laws
 
@@ -25,9 +25,11 @@ portfolio_prevalence: ESTABLISHED | NOT_ESTABLISHED
 3. Derive the method from the failure mechanism; `unit`, `integration`, and `e2e` alone are insufficient.
 4. The drive recipe must say what is actually exercised. A mock cannot establish a real-seam claim.
 5. The oracle must name the authority that can distinguish correct from incorrect behavior.
-6. The receipt must bind result to revision and current execution. A remembered green is not current evidence.
-7. Required unavailable evidence remains explicit. It never becomes implicit success.
-8. No health score. No additive confidence total. No model-consensus authority.
+6. Oracle independence must be established when correctness authority is claimed. A common-mode oracle may detect changes without independently establishing correctness.
+7. A characterization baseline can support an explicit preservation claim; it does not become normative correctness merely because it existed before.
+8. The receipt must bind result to revision and current execution. A remembered green is not current evidence.
+9. Required unavailable evidence remains explicit. It never becomes implicit success.
+10. No health score. No additive confidence total. No model-consensus authority.
 
 ## Required unavailable evidence
 
