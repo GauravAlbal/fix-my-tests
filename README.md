@@ -13,11 +13,29 @@ what can break?
 → keep / fix / add / delete / move
 ```
 
-It is a read-only [Agent Skill](https://agentskills.io/). It inspects the repository and gives you a bounded verification diagnosis; it does not rewrite your tests.
+It is a read-only [Agent Skill](https://agentskills.io/). It inspects your repository and tells you what your tests actually protect, what they miss, and what to do about it. It does not rewrite your tests.
 
 ## Try it now — no install
 
-Paste this into a repo-aware coding agent that can read web links:
+Paste this into any coding agent (Claude, Cursor, Windsurf, Copilot, etc.) that can read web links:
+
+```text
+Use Fix My Tests on this repository.
+
+Read the skill at:
+https://github.com/GauravAlbal/fix-my-tests/tree/main/fix-my-tests
+
+Start with SKILL.md and follow the required references. Work read-only.
+
+My question:
+<put your test-system question here>
+```
+
+The skill files contain detailed instructions for the agent — you just need to add your question at the bottom.
+
+<details><summary>Advanced prompt with full constraints</summary>
+
+For more control over the analysis, use this expanded version:
 
 ```text
 Use Fix My Tests on this repository.
@@ -39,6 +57,8 @@ My question:
 <put your test-system question here>
 ```
 
+</details>
+
 If your agent cannot read the linked skill, install it once instead.
 
 ## Use it when
@@ -47,7 +67,7 @@ If your agent cannot read the linked skill, install it once instead.
 - The suite is green but you do not trust it.
 - CI is slow or flaky and you want to remove tests safely.
 - The tests are heavily mocked or implementation-coupled and you are unsure what they prove.
-- Generated tests appear to reproduce the implementation's own logic in their expected answers.
+- The AI-generated tests seem to just copy your code's logic into the expected answers — so they pass but prove nothing.
 - A vibe-coded project is approaching production.
 - You are not sure what should block a merge, run later, or disappear entirely.
 
@@ -79,7 +99,7 @@ A mocked handler test may still be worth keeping. But if it cannot expose a mism
 
 ## What you get
 
-A run returns the important risks it found, the evidence your current tests actually provide, the gaps that matter, and a short list of first moves.
+A run tells you which risks it found, what your current tests actually prove, what is missing, and a short list of concrete next steps.
 
 Here is a condensed example of what a finding looks like:
 
@@ -87,13 +107,13 @@ Here is a condensed example of what a finding looks like:
 ## Risk: Payment succeeds but access is not granted
 
 Surface: Stripe webhook → entitlement grant
-Obligation: HARD INVARIANT
-Failure mechanism: real interface mismatch
+Obligation: HARD INVARIANT — this must never break
+Failure mechanism: the test mocks the boundary it needs to check
 
 Current evidence:
   webhook_handler_test.py — unit test with mocked provider payload
 
-Qualification: WRONG METHOD
+Finding: WRONG METHOD
   The test checks handler logic in isolation. It cannot detect a
   mismatch between the real Stripe event and your production
   metadata path because the provider boundary is mocked.
@@ -150,44 +170,36 @@ Use Fix My Tests on this repo. The suite is green, but most of it is mocked
 and I do not trust it. What evidence do I actually have?
 ```
 
-The skill preserves your question and answers it at an explicit evidence boundary.
+The skill preserves your question and gives you a direct answer with a clear boundary around what was and was not checked.
 
 ## How it works
 
-The analysis follows one dependency chain:
+The analysis follows one chain:
 
 ```text
-product behavior
-→ material bad outcome
-→ failure mechanism
-→ right kind of evidence
-→ current tests
-→ smallest sufficient portfolio
+what does the product do?
+→ what bad outcome would actually matter?
+→ how could that failure happen?
+→ what kind of test could catch it?
+→ do the current tests actually do that?
+→ smallest set of tests that covers what matters
 ```
 
 Five rules do most of the work:
 
-1. **A real test can still be the wrong kind of evidence.** A unit test may be perfectly falsifiable and still be unable to expose a crash, race, wire-protocol mismatch, or other failure at a different seam.
-2. **The oracle needs an independent basis.** A test that recomputes its expected answer from the same implementation can detect change without independently establishing correctness.
-3. **Characterization is not automatically correctness.** A fixed old baseline can prove an explicit preservation claim; it does not prove the old behavior was right merely because it existed.
-4. **Interactions sometimes are the failure mechanism.** When bugs depend on combinations of flags, roles, versions, or configuration factors, use bounded t-way/combinatorial evidence rather than pretending a few examples are systematic coverage.
-5. **Deletion must preserve evidence.** A test is only safe to remove when the material evidence it uniquely provides survives somewhere else.
+1. **A passing test can still miss the real bug.** A unit test for your payment handler won't catch a crash between two database writes. The test is fine — it's just testing the wrong thing.
+2. **A test needs an independent source of truth.** If the test computes its expected answer using the same logic as your code, it'll catch changes but can't tell you if the answer was right in the first place.
+3. **Snapshots prove "nothing changed," not "this is correct."** A golden file from six months ago can tell you something shifted. It can't tell you the original output was right.
+4. **Some bugs only appear in specific combinations.** When a failure requires admin + dark mode + v2 API, a handful of examples won't find it. You need systematic coverage of the interactions.
+5. **Only delete a test when something else covers what it protects.** If nothing else catches that failure, the test stays — even if it's ugly.
 
-Hard invariants cannot be offset: lots of easy greens cannot make up for one uncovered authorization, durability, or other must-not-break property.
+Must-not-break properties (authorization, data durability, payment correctness) cannot be offset by passing tests elsewhere. One gap in something critical matters more than a hundred greens on easy stuff.
 
 For the full method, see [`PROTOCOL.md`](fix-my-tests/PROTOCOL.md) and [`RISK_METHOD_MATRIX.md`](fix-my-tests/RISK_METHOD_MATRIX.md).
 
 ## Agent Skills format
 
-`fix-my-tests/` follows the open [Agent Skills specification](https://agentskills.io/specification):
-
-- the parent directory and frontmatter `name` are both `fix-my-tests`;
-- `SKILL.md` supplies the required `name` and activation-oriented `description`;
-- license and string metadata use standard optional frontmatter fields;
-- the main `SKILL.md` stays small and points to relative resources only when the deeper protocol is needed;
-- the protocol, session template, run prompt, and verification map remain resources inside the skill directory.
-
-Maintainers with [`uv`](https://docs.astral.sh/uv/) can run the Agent Skills reference validator without a permanent install:
+`fix-my-tests/` follows the open [Agent Skills specification](https://agentskills.io/specification). Maintainers can validate the skill with:
 
 ```sh
 uvx --from skills-ref agentskills validate ./fix-my-tests
@@ -197,12 +209,12 @@ uvx --from skills-ref agentskills validate ./fix-my-tests
 
 | File | Purpose |
 | --- | --- |
-| [`SKILL.md`](fix-my-tests/SKILL.md) | Agent Skill entry point and activation metadata |
-| [`PROTOCOL.md`](fix-my-tests/PROTOCOL.md) | Full bounded analysis procedure |
-| [`RISK_METHOD_MATRIX.md`](fix-my-tests/RISK_METHOD_MATRIX.md) | Failure mechanism → evidence capability and qualification law |
-| [`SIT.md`](fix-my-tests/SIT.md) | Structured analysis output |
-| [`RUN_PROMPT.md`](fix-my-tests/RUN_PROMPT.md) | Standalone execution constraints |
-| [`VERIFICATION_MAP.md`](fix-my-tests/VERIFICATION_MAP.md) | Risk → evidence implementation map |
+| [`SKILL.md`](fix-my-tests/SKILL.md) | Entry point — tells the agent when and how to run |
+| [`PROTOCOL.md`](fix-my-tests/PROTOCOL.md) | Full analysis procedure |
+| [`RISK_METHOD_MATRIX.md`](fix-my-tests/RISK_METHOD_MATRIX.md) | How to match failure types to the right kind of test |
+| [`SIT.md`](fix-my-tests/SIT.md) | Output template the agent fills in |
+| [`RUN_PROMPT.md`](fix-my-tests/RUN_PROMPT.md) | Execution rules and constraints |
+| [`VERIFICATION_MAP.md`](fix-my-tests/VERIFICATION_MAP.md) | Risk → test implementation plan |
 
 ## Limits
 
