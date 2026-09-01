@@ -218,7 +218,7 @@ uvx --from skills-ref agentskills validate ./fix-my-tests
 
 ## Limits
 
-Fix My Tests is a diagnosis, not a safety certification. It does not modify the target repository, and a clean result does not prove that every possible product risk was discovered.
+Fix My Tests is a diagnosis, not a safety certification. The skill instructs the agent not to modify your repository, but we cannot guarantee agent behavior — check what it did before you commit. A clean result does not prove that every possible product risk was discovered.
 
 ## License
 
