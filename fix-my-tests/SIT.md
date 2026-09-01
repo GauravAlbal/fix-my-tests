@@ -1,6 +1,6 @@
 # Fix My Tests — live sit v0.6.0
 
-Copy per sitting. One repo / one bounded test-system question. Read-only.
+Copy per session. One repo / one bounded test-system question. Read-only.
 
 ## Identity
 
@@ -43,7 +43,7 @@ Derive these rows independently of the existing tests. One row per material bad 
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | RA- |  |  |  | COMMON / PLAUSIBLE / RARE / UNKNOWN | CATASTROPHIC / HIGH / MODERATE / LOW / UNKNOWN | HARD_INVARIANT / MATERIAL / DEFERRED / UNKNOWN |  |  |  |  |
 
-Hard invariants are noncompensatory.
+Hard invariants cannot be offset by other passing tests.
 
 ### Discovery coverage
 
@@ -128,7 +128,7 @@ For hard invariants, only qualifying evidence can produce `COVERED`.
 
 ## Representative analysis scope
 
-Use when the operator asked whether a nontrivial suite is useful/trustworthy/gnarly/redundant.
+Use when the user asked whether a nontrivial suite is useful/trustworthy/gnarly/redundant.
 
 ```yaml
 risk_discovery_scope: BOUNDED | BROAD | UNKNOWN
@@ -202,7 +202,7 @@ move:
 
 Repeat only as justified.
 
-## Answer the operator ask
+## Answer the user's question
 
 Answer separately from repair priority.
 
@@ -232,7 +232,7 @@ NEEDS_MORE_EVIDENCE
 NO_MATERIAL_CHANGE
 ```
 
-This says what should be repaired first. It is not the operator-answer disposition.
+This says what should be repaired first. It is not the user-answer disposition.
 
 `NO_MATERIAL_CHANGE` is legal only when no consequential non-`KEEP` action is justified.
 
@@ -240,7 +240,7 @@ This says what should be repaired first. It is not the operator-answer dispositi
 
 One paragraph. No score.
 
-## Dogfood readout
+## Session feedback
 
 ```yaml
 active_operator_seconds: <measured integer> | null
@@ -253,6 +253,6 @@ missing_input_that_mattered:
 protocol_bug_or_taxonomy_split:
 ```
 
-Do not infer operator time from wall time, transcript size, timestamps, receipts, or token count.
+Do not infer user time from wall time, transcript size, timestamps, receipts, or token count.
 
 Stop. Do not modify the repo or expand into a broader assurance program automatically.

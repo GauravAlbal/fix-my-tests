@@ -1,12 +1,12 @@
-# Fix My Tests — dogfood run prompt
+# Fix My Tests — run prompt
 
 Use with a repo-aware coding/review agent that can inspect the target repository and its verification machinery.
 
 ---
 
-You are running **Fix My Tests v0.6.0** as a bounded, read-only live sitting.
+You are running **Fix My Tests v0.6.0** as a bounded, read-only live session.
 
-The operator may be on a first vibe-coded project or operating a mature multi-tier verification system. Discover the repo state yourself; do not require testing jargon.
+The user may be on a first vibe-coded project or operating a mature multi-tier verification system. Discover the repo state yourself; do not require testing jargon.
 
 Your job is:
 
@@ -22,10 +22,10 @@ Work against the actual repository state.
 
 ## Hard rules
 
-1. Preserve the operator's explicit question before routing. Repair priority MUST NOT replace the ask.
+1. Preserve the user's explicit question before routing. Repair priority MUST NOT replace the ask.
 2. Existing tests do **not** define the risk model. Discover risks from product surfaces using the independent lenses in `RISK_METHOD_MATRIX.md`.
 3. Build a bounded risk register **before** claiming representative test quality.
-4. Mark hard invariants. They are noncompensatory; many easy greens cannot offset one uncovered applicable hard invariant.
+4. Mark hard invariants. They cannot be offset by other passing tests; many easy greens cannot offset one uncovered applicable hard invariant.
 5. Derive `failure_mechanism → required_evidence_capability` before judging whether an existing test is appropriate.
 6. `unit / integration / e2e` is not a sufficient method taxonomy. Use the failure-mechanism matrix.
 7. When failures depend on interactions among flags, roles, versions, configuration values, protocol modes, or similar factors, consider `COMBINATORIAL_INTERACTION`; do not call a few examples or unguided random cases systematic interaction coverage.
@@ -35,7 +35,7 @@ Work against the actual repository state.
 11. A fixed characterization baseline can support an explicit preservation claim. It does not prove the captured behavior was correct merely because it was previously observed.
 12. Treat method/interaction mirrors with no material behavior or structural claim as `CHANGE_DETECTOR`, not useful correctness evidence.
 13. If complex test-side logic computes the expected result or hides the failure path, do not assume test code is trustworthy because it is test code; mark `TEST_LOGIC_UNVERIFIED` and leave instrument/oracle independence unknown until resolved.
-14. If the operator explicitly asks whether tests are useful/trustworthy/gnarly/redundant, choose the sample from independently discovered risk rows/mechanisms—not from tests that merely look diverse.
+14. If the user explicitly asks whether tests are useful/trustworthy/gnarly/redundant, choose the sample from independently discovered risk rows/mechanisms—not from tests that merely look diverse.
 15. State `risk_discovery_scope`, `evidence_quality_scope`, and whether portfolio prevalence was established. Never infer complete risk coverage from a clean representative slice.
 16. If the repo is tiny, stop after the 3–7 consequential risks/hard invariants and 1–3 highest-value moves. Do not build an enterprise program.
 17. If the repo is mature, broaden risk discovery using requirements/interfaces/state/history/real seams and material factor interactions before subtraction/cadence analysis.
@@ -47,10 +47,10 @@ Work against the actual repository state.
 23. Preserve `UNKNOWN` rather than inventing risk, method, severity, likelihood, oracle independence, or cadence facts.
 24. CI, hooks, hosted workflows, and release/nightly/live checks are execution substrates, not the ontology. Inspect them after evidence semantics when binding/cadence matters.
 25. Internal/local gates and hosted CI are equally valid if they reliably bind the required evidence.
-26. Answer the operator separately from the first repair class. Use `ANSWERED | NEEDS_MORE_EVIDENCE` plus an explicit evidence scope; do not hide boundedness behind generic `PARTIAL`.
+26. Answer the user separately from the first repair class. Use `ANSWERED | NEEDS_MORE_EVIDENCE` plus an explicit evidence scope; do not hide boundedness behind generic `PARTIAL`.
 27. Return at most five first moves; usually fewer.
-28. Do not invent savings, defect rates, flake rates, or operator time.
-29. Do not modify code, tests, hooks, workflows, CI, tasks, or tracked files in this sitting.
+28. Do not invent savings, defect rates, flake rates, or user time.
+29. Do not modify code, tests, hooks, workflows, CI, tasks, or tracked files in this session.
 30. Delegation is read-only. Child agents may inspect/search only. If the delegation mechanism cannot guarantee no writes, no task creation, no submission, and no acceptance side effects, **do not delegate**.
 31. Choose exactly one first-repair exit and stop. `NO_MATERIAL_CHANGE` is legal only when no consequential non-`KEEP` disposition is justified.
 
@@ -58,7 +58,7 @@ Work against the actual repository state.
 
 Use the cheapest evidence that can change a decision:
 
-1. operator's explicit question;
+1. user's explicit question;
 2. product surfaces / requirements / public APIs / important state and seams;
 3. bounded risk discovery across applicable lenses;
 4. failure mechanism + required capability derivation;
@@ -77,7 +77,7 @@ Fill `SIT.md` using only applicable sections.
 Always include:
 
 - repo/revision;
-- operator ask;
+- user's question;
 - dominant system problem / first-repair routing;
 - bounded risk register with hard invariants identified;
 - required evidence capability for each material risk in scope;
@@ -85,23 +85,23 @@ Always include:
 - risk coverage reconciliation (`COVERED / UNDERCOVERED / GAP / INVALID / REDUNDANT / DEFERRED / UNKNOWN`);
 - analysis scope (`risk_discovery`, `evidence_quality`, `portfolio_prevalence`);
 - at most five first moves;
-- direct operator answer + evidence boundary;
+- direct user answer + evidence boundary;
 - exactly one first-repair exit;
-- dogfood readout.
+- session feedback.
 
 For every subtraction/downgrade/move, state which risk coverage remains and why no unique material evidence is lost.
 
-If the sitting mostly produces `UNKNOWN`, say so.
+If the session mostly produces `UNKNOWN`, say so.
 
 ## Timing
 
-Do not estimate active operator time from agent wall time, transcript size, timestamps, receipts, or token use.
+Do not estimate active user time from agent wall time, transcript size, timestamps, receipts, or token use.
 
-Unless explicitly measured/estimated by the operator:
+Unless explicitly measured/estimated by the user:
 
 ```text
 active_operator_seconds: null
 active_operator_time_source: unknown
 ```
 
-Do not claim the repo is safe. Do not publish anything from the diagnostic sitting.
+Do not claim the repo is safe. Do not publish anything from the diagnostic session.

@@ -2,7 +2,7 @@
 
 Status: public protocol for the v0.6 line.
 
-Read `RISK_METHOD_MATRIX.md` as normative method law for this protocol.
+Read `RISK_METHOD_MATRIX.md` as governing evidence rules for this protocol.
 
 ## Moment
 
@@ -18,7 +18,7 @@ The existing suite is evidence to inspect. It is **not** the source of truth for
 
 ---
 
-# 0. Preserve the operator ask
+# 0. Preserve the user's question
 
 Record the user's actual question before routing.
 
@@ -74,7 +74,7 @@ CADENCE
 UNKNOWN
 ```
 
-This is not the answer to the operator ask.
+This is not the answer to the user's question.
 
 ---
 
@@ -119,7 +119,7 @@ risk:
 
 ## Hard-invariant law
 
-`HARD_INVARIANT` is noncompensatory.
+`HARD_INVARIANT` cannot be offset by other passing tests.
 
 Many greens on lower-risk behavior cannot make an uncovered hard invariant acceptable.
 
@@ -133,7 +133,7 @@ If risk discovery is bounded rather than broad, say so. A clean sample of existi
 
 Before judging the existing test, derive what kind of evidence could expose the failure.
 
-Use the normative matrix in `RISK_METHOD_MATRIX.md`.
+Use the governing matrix in `RISK_METHOD_MATRIX.md`.
 
 Examples:
 
@@ -277,7 +277,7 @@ Do not trust opaque test code merely because it is test code.
 
 # 5. Reconcile risk coverage before optimizing the suite
 
-Every material risk in the bounded sitting receives one portfolio status:
+Every material risk in the bounded session receives one portfolio status:
 
 ```text
 COVERED
@@ -305,7 +305,7 @@ Do not let 50 easy covered rows compensate for one uncovered hard invariant.
 
 # 6. Representative test-quality analysis must be risk-driven
 
-If the operator asks whether a large suite is useful/trustworthy/gnarly/redundant, inspect a bounded representative slice—but derive the slice **from the risk register**, not by picking tests that look diverse.
+If the user asks whether a large suite is useful/trustworthy/gnarly/redundant, inspect a bounded representative slice—but derive the slice **from the risk register**, not by picking tests that look diverse.
 
 Selection order:
 
@@ -334,7 +334,7 @@ A good representative slice establishes quality of inspected evidence. It does n
 
 # 7. Find waste only after coverage is intelligible
 
-Use portfolio analysis when the suite is rich enough or the operator explicitly asks about waste.
+Use portfolio analysis when the suite is rich enough or the user explicitly asks about waste.
 
 Before delete/downgrade/move:
 
@@ -377,7 +377,7 @@ No deletion candidate is a valid result until subtraction preserves all material
 
 Evidence semantics come first. CI topology is not the ontology.
 
-Inspect hooks, hosted CI, release/nightly jobs, manual probes, live checks, or equivalent gates only when the operator's question depends on **where** qualified evidence runs or whether it actually blocks the relevant transition.
+Inspect hooks, hosted CI, release/nightly jobs, manual probes, live checks, or equivalent gates only when the user's question depends on **where** qualified evidence runs or whether it actually blocks the relevant transition.
 
 Use:
 
@@ -429,7 +429,7 @@ Return at most five first moves. Usually fewer.
 
 ---
 
-# 10. Answer the operator separately from repair priority
+# 10. Answer the user separately from repair priority
 
 Do not let a severe adjacent issue replace the original question.
 
@@ -467,19 +467,19 @@ Interpretation:
 - `INSTRUMENTS_FIRST` — flake, environment, stale/common-mode test machinery, or attribution prevents trustworthy interpretation.
 - `BINDING_FIRST` — qualified evidence exists but is not bound to the relevant progression boundary.
 - `CLEANUP_READY` — coverage is intelligible enough that subtraction/consolidation is the highest-value first move.
-- `NEEDS_MORE_EVIDENCE` — the sitting cannot establish the requested decision.
+- `NEEDS_MORE_EVIDENCE` — the session cannot establish the requested decision.
 - `NO_MATERIAL_CHANGE` — no consequential non-`KEEP` action is justified.
 
-This exit says what should be repaired first. It is not the operator-answer disposition.
+This exit says what should be repaired first. It is not the user-answer disposition.
 
 ---
 
-# 12. Dogfood readout and stop
+# 12. Session feedback and stop
 
 Record:
 
 ```yaml
-dogfood:
+feedback:
   active_operator_seconds: <measured integer> | null
   active_operator_time_source: measured | operator_estimate | unknown
   action_changed: yes | no | unclear
@@ -490,8 +490,8 @@ dogfood:
   protocol_bug_or_taxonomy_split:
 ```
 
-Do not infer operator time from wall time, transcript size, timestamps, receipts, or token count.
+Do not infer user time from wall time, transcript size, timestamps, receipts, or token count.
 
 Stop when the bounded risk register and evidence qualification are sufficient to change the requested decision and the uncertainty boundary is explicit.
 
-Do not modify the target repository in the diagnostic sitting. Do not claim the repository is safe.
+Do not modify the target repository in the diagnostic session. Do not claim the repository is safe.

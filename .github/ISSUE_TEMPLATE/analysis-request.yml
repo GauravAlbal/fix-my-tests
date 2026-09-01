@@ -1,13 +1,13 @@
-name: Fix My Tests dogfood request
-description: Request a bounded, read-only verification-portfolio sitting
-title: "Dogfood: "
+name: Fix My Tests analysis request
+description: Request a bounded, read-only verification-portfolio analysis
+title: "Analysis: "
 labels:
-  - dogfood
+  - analysis
 body:
   - type: markdown
     attributes:
       value: |
-        Fix My Tests starts from product risks, not test files. A sitting is read-only and returns a bounded risk/evidence map plus a few first moves. It does not certify that the repository is safe.
+        Fix My Tests starts from product risks, not test files. The analysis is read-only and returns a bounded risk/evidence map plus a few first moves. It does not certify that the repository is safe.
   - type: input
     id: repository
     attributes:
@@ -38,13 +38,13 @@ body:
     id: boundary
     attributes:
       label: Scope boundary
-      description: Anything the sitting must not inspect or disclose.
+      description: Anything the analysis must not inspect or disclose.
   - type: checkboxes
     id: consent
     attributes:
       label: Public evidence consent
       options:
-        - label: I understand the sitting is read-only and not a safety certification.
+        - label: I understand the analysis is read-only and not a safety certification.
           required: true
         - label: I consent to the issue and resulting bounded report remaining public.
           required: true

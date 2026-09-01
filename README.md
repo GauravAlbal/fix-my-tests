@@ -81,25 +81,26 @@ A mocked handler test may still be worth keeping. But if it cannot expose a mism
 
 A run returns the important risks it found, the evidence your current tests actually provide, the gaps that matter, and a short list of first moves.
 
-A finding looks roughly like this:
+Here is a condensed example of what a finding looks like:
 
 ```text
-RISK
-Payment succeeds but access is not granted.
+## Risk: Payment succeeds but access is not granted
 
-CURRENT EVIDENCE
-Webhook unit test with a mocked provider payload.
+Surface: Stripe webhook → entitlement grant
+Obligation: HARD INVARIANT
+Failure mechanism: real interface mismatch
 
-FINDING
-WRONG METHOD
+Current evidence:
+  webhook_handler_test.py — unit test with mocked provider payload
 
-WHY
-The test checks handler logic but cannot catch a mismatch
-between the real provider event and the production metadata path.
+Qualification: WRONG METHOD
+  The test checks handler logic in isolation. It cannot detect a
+  mismatch between the real Stripe event and your production
+  metadata path because the provider boundary is mocked.
 
-MOVE
-Keep the unit test for handler logic.
-Add one check at the real provider boundary.
+Move:
+  Keep the unit test for handler logic.
+  Add one integration check at the real provider boundary.
 ```
 
 Fix My Tests can also conclude that a test is useful, that deletion is unsafe, or that the available evidence is not enough to decide.
@@ -119,16 +120,7 @@ mkdir -p "$HOME/.agents/skills"
 ln -s "$HOME/.local/share/fix-my-tests/fix-my-tests" \
   "$HOME/.agents/skills/fix-my-tests"
 ```
-
-For OMP (Oh My Pi):
-
-```sh
-git clone --depth 1 https://github.com/GauravAlbal/fix-my-tests.git \
-  "$HOME/.local/share/fix-my-tests"
-mkdir -p "$HOME/.omp/agent/skills"
-ln -s "$HOME/.local/share/fix-my-tests/fix-my-tests" \
-  "$HOME/.omp/agent/skills/fix-my-tests"
-```
+Other agent clients may use a different skill directory — check your client's documentation for the correct path.
 
 Restart the client after first install so it reloads skill metadata.
 
@@ -181,7 +173,7 @@ Five rules do most of the work:
 4. **Interactions sometimes are the failure mechanism.** When bugs depend on combinations of flags, roles, versions, or configuration factors, use bounded t-way/combinatorial evidence rather than pretending a few examples are systematic coverage.
 5. **Deletion must preserve evidence.** A test is only safe to remove when the material evidence it uniquely provides survives somewhere else.
 
-Hard invariants remain noncompensatory: lots of easy greens cannot make up for one uncovered authorization, durability, or other must-not-break property.
+Hard invariants cannot be offset: lots of easy greens cannot make up for one uncovered authorization, durability, or other must-not-break property.
 
 For the full method, see [`PROTOCOL.md`](fix-my-tests/PROTOCOL.md) and [`RISK_METHOD_MATRIX.md`](fix-my-tests/RISK_METHOD_MATRIX.md).
 
@@ -193,7 +185,7 @@ For the full method, see [`PROTOCOL.md`](fix-my-tests/PROTOCOL.md) and [`RISK_ME
 - `SKILL.md` supplies the required `name` and activation-oriented `description`;
 - license and string metadata use standard optional frontmatter fields;
 - the main `SKILL.md` stays small and points to relative resources only when the deeper protocol is needed;
-- the protocol, sitting template, run prompt, and verification map remain resources inside the skill directory.
+- the protocol, session template, run prompt, and verification map remain resources inside the skill directory.
 
 Maintainers with [`uv`](https://docs.astral.sh/uv/) can run the Agent Skills reference validator without a permanent install:
 

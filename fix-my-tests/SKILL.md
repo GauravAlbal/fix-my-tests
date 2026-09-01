@@ -18,7 +18,7 @@ metadata:
 
 ## Moment
 
-Something about this repository's tests feels wrong, or the operator needs to know what must be tested before trusting the software.
+Something about this repository's tests feels wrong, or the user needs to know what must be tested before trusting the software.
 
 ## Governing question
 
@@ -28,12 +28,12 @@ What product risks deserve evidence here, what capability can expose each failur
 
 Read and obey the sibling files in this order:
 
-1. `RISK_METHOD_MATRIX.md` — normative risk, failure-mechanism, oracle-independence, and evidence-method law.
+1. `RISK_METHOD_MATRIX.md` — governing risk, failure-mechanism, oracle-independence, and evidence-method law.
 2. `PROTOCOL.md` — bounded analysis procedure and decision contracts.
 3. `SIT.md` — output contract.
 4. `RUN_PROMPT.md` — full execution constraints.
 
-Load `VERIFICATION_MAP.md` only when the operator needs an implementation-ready risk-to-evidence plan after the diagnostic sitting.
+Load `VERIFICATION_MAP.md` only when the user needs an implementation-ready risk-to-evidence plan after the diagnostic session.
 
 ## Non-negotiable order
 
@@ -48,10 +48,10 @@ PRODUCT SURFACE
 → PORTFOLIO STATUS
 ```
 
-Existing tests never define the risk model. A green result from unqualified evidence has no authority for the claim. Hard invariants are noncompensatory.
+Existing tests never define the risk model. A green result from unqualified evidence has no authority for the claim. Hard invariants cannot be offset by other passing tests.
 
 A test whose expected answer is materially derived from the same implementation may be a common-mode change detector rather than independent correctness evidence. A captured baseline may establish preservation when preservation is the named claim; it does not prove the captured behavior was correct by itself.
 
 ## Exit
 
-Fill `SIT.md`, answer the operator's actual question, choose exactly one first-repair exit, and stop. Do not modify the target repository. Do not claim the repository is safe.
+Fill `SIT.md`, answer the user's actual question, choose exactly one first-repair exit, and stop. Do not modify the target repository. Do not claim the repository is safe.

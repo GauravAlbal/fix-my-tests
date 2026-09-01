@@ -1,6 +1,6 @@
 # Fix My Tests — risk / method kernel
 
-**Status:** normative for Fix My Tests v0.6.0. This is a bounded RACS kernel, not a universal risk catalog or an exhaustive assurance-planning engagement.
+**Status:** governing for Fix My Tests v0.6.0. This is a bounded evidence-method kernel, not a universal risk catalog or an exhaustive assurance-planning engagement.
 
 ## Governing law
 
@@ -82,7 +82,7 @@ risk:
   likelihood: COMMON | PLAUSIBLE | RARE | UNKNOWN
   severity: CATASTROPHIC | HIGH | MODERATE | LOW | UNKNOWN
   obligation: HARD_INVARIANT | MATERIAL | DEFERRED | UNKNOWN
-  basis: <spec / API / incident / code invariant / explicit operator requirement>
+  basis: <spec / API / incident / code invariant / explicit user requirement>
   claim: <positive property that must hold>
   failure_mechanism: <typed mechanism below>
   required_capability: <evidence capability derived below>
@@ -90,7 +90,7 @@ risk:
 
 ### Materiality law
 
-- `HARD_INVARIANT` is noncompensatory. If applicable, it requires qualifying evidence regardless of estimated likelihood.
+- `HARD_INVARIANT` cannot be offset by other passing tests. If applicable, it requires qualifying evidence regardless of estimated likelihood.
 - `MATERIAL` risks are prioritized using ordinal likelihood × severity. Do not multiply fake numbers or produce a health score.
 - `DEFERRED` requires a reason. “No test exists” is not a reason.
 - `UNKNOWN` widens inquiry; it does not silently become low risk.
@@ -200,7 +200,7 @@ A passing result from `UNQUALIFIED` evidence contributes **zero blocking authori
 
 A captured baseline can be legitimate evidence for a claim such as **“this accepted behavior did not change”** when the baseline revision/artifact is explicitly the authority and is independent of the candidate under test.
 
-The same baseline does not establish **“this behavior is correct”** merely because it records what the old implementation happened to do. Characterization is descriptive until a requirement, invariant, accepted baseline policy, or other authority makes preservation normative.
+The same baseline does not establish **“this behavior is correct”** merely because it records what the old implementation happened to do. Characterization is descriptive until a requirement, invariant, accepted baseline policy, or other authority makes preservation binding.
 
 ### Change-detector boundary
 
@@ -214,10 +214,10 @@ Do not ban loops, conditionals, helpers, builders, or generated expectations cat
 
 # 5. Reconcile the portfolio
 
-Every material risk in the bounded sitting receives one status:
+Every material risk in the bounded session receives one status:
 
 ```text
-COVERED        — sufficient qualified evidence for the obligation in this sitting
+COVERED        — sufficient qualified evidence for the obligation in this session
 UNDERCOVERED   — relevant evidence exists but capability/independence is insufficient
 GAP            — no qualifying evidence for the material risk
 INVALID        — apparent evidence exists but is unqualified
@@ -288,4 +288,4 @@ Broaden risk discovery using requirements, public interfaces, state machines, hi
 
 ### Stop rule
 
-Stop when the bounded risk register is sufficient to change the requested decision and the uncertainty boundary is explicit. Do not turn a bounded sitting into an exhaustive assurance program.
+Stop when the bounded risk register is sufficient to change the requested decision and the uncertainty boundary is explicit. Do not turn a bounded session into an exhaustive assurance program.

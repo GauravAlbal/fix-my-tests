@@ -67,7 +67,7 @@ This changes recommendations.
 - A few golden examples cannot establish a distributional quality claim.
 - More unit tests do not repair an untested CLI or wire protocol.
 
-Hard invariants are noncompensatory. Fifty easy greens cannot offset one uncovered authorization or durability invariant.
+Hard invariants cannot be offset. Fifty easy greens cannot offset one uncovered authorization or durability invariant.
 
 That is the job of [Fix My Tests](https://github.com/GauravAlbal/fix-my-tests): derive the risk model before letting the existing suite influence it.
 
@@ -126,7 +126,7 @@ risk → claim → failure mechanism → method → drive → oracle → receipt
 
 Completion requires runnable, revision-bound evidence for the selected rows—not a longer report. The service stops after handoff. It does not become permanent PR adjudication, generic CI modernization, or a claim that the repository is safe.
 
-Demand is not assumed. The offer exists to test whether operators who accept the diagnosis want the implementation burden removed.
+Demand is not assumed. The offer exists to test whether users who accept the diagnosis want the implementation burden removed.
 
 ---
 
@@ -147,7 +147,7 @@ exact candidate
 → independent accept / refuse
 ```
 
-That is the job Moat may eventually package for external users. Internal architectural maturity is not proof of demand, so the product stays held until operators repeatedly ask for the loop to be run—not merely for the evidence system to be repaired once.
+That loop can be packaged for external users. Architectural maturity is not proof of demand, so the product stays held until users repeatedly ask for the loop to be run—not merely for the evidence system to be repaired once.
 
 The ladder is based on changing jobs, not feature withholding:
 

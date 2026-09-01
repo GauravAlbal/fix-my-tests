@@ -33,7 +33,7 @@ Each selected risk row must have a named positive claim, a method capable of exp
 - permanent PR adjudication;
 - test-count or coverage targets;
 - invented defect-rate, time-savings, or ROI claims;
-- a requirement to adopt Moat, Arq, or any other product.
+- a requirement to adopt any specific CI tool, service, or product.
 
 ## Founding commercial test
 
