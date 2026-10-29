@@ -35,6 +35,8 @@ Read and obey the sibling files in this order:
 
 Load `VERIFICATION_MAP.md` only when the user needs an implementation-ready risk-to-evidence plan after the diagnostic session.
 
+Open `examples/TINY.md` when the output shape is unclear, or when the user asks what a diagnosis looks like before running one.
+
 ## Non-negotiable order
 
 ```text

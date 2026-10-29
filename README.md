@@ -15,6 +15,22 @@ what can break?
 
 It is a read-only [Agent Skill](https://agentskills.io/). It inspects your repository and tells you what your tests actually protect, what they miss, and what to do about it. It does not rewrite your tests.
 
+## What comes back
+
+Two lists, and the reasoning behind them:
+
+```text
+failures nothing would catch     risks with no test that can fail for that reason
+tests that protect nothing       green tests whose expected answer cannot distinguish
+                                 correct from incorrect behaviour
+```
+
+Plus a verdict per existing test — `QUALIFIED`, `UNQUALIFIED` (hollow, or a common-mode
+change detector), `GAP` — and at most five first moves.
+
+[See a full worked example →](fix-my-tests/examples/TINY.md) — three green tests, one
+genuine gap, one test that only asserts its own mock.
+
 ## Try it now — no install
 
 Paste this into any coding agent (Claude, Cursor, Windsurf, Copilot, etc.) that can read web links:
