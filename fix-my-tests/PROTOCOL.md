@@ -1,7 +1,7 @@
 # Fix My Tests — live protocol v0.7.0
 
 Status: public protocol, v0.7.0. Diagnosis only — this pack derives risks, derives the capability each failure mechanism needs, and qualifies existing
- evidence. It does not modify the target repository. The private line additionally carries a vacuity corpus audit, a sample-ordering index, and
+ evidence. Diagnosis does not modify the target repository; writing is a separate granted step (`MUTATE.md`). The private line additionally carries a vacuity corpus audit, a sample-ordering index, and
 grant-gated mutation; none of that ships here.
 
 Read `RISK_METHOD_MATRIX.md` as normative method law. Load **sections** from `SKILL.md` — tiny diagnose is #0–4 and #9–11, not this file cover-to-cover.
@@ -503,3 +503,8 @@ Do not infer operator time from wall time, transcript size, timestamps, receipts
 Stop when the bounded risk register and evidence qualification are sufficient to change the requested decision and the uncertainty boundary is explicit.
 
 Do not modify the target repository in the diagnostic sitting. Do not claim the repository is safe.
+
+# 13. Mutation (grant only)
+
+Diagnosis does not modify the target repository. Mutation proceeds only when the operator has granted it explicitly and the first-repair exit permits it; `MUTATE.md` is the whole of that authority, and `PRUNE.md` governs deletions. Show the ledger before editing, apply one tranche, prove preservation by making the keeper go red on one production line and restoring it byte for byte, report, and stop.
+

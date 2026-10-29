@@ -178,7 +178,7 @@ Every disposition references a risk row or explicit verification-system risk.
 | --- | --- | --- | --- | --- | --- |
 |  | KEEP / FIX_ORACLE / FIX_INSTRUMENT / REPLACE_METHOD / ADD_EVIDENCE / DELETE_CANDIDATE / DOWNGRADE_NONBLOCKING / QUARANTINE / MOVE_LATER / BIND_EVIDENCE / UNKNOWN | RA- / verification risk |  |  |  |
 
-`ADD_EVIDENCE` without a named risk + required capability is invalid. Diagnose: these names only, as recommendations. This pack does not modify the repository. Verification-system rows use Risk = verification risk, not a fake RA-.
+`ADD_EVIDENCE` without a named risk + required capability is invalid. In a diagnosis sitting these are recommendations only; the repository is untouched unless `MUTATE.md` preconditions are met. Verification-system rows use Risk = verification risk, not a fake RA-.
 
 ## Always — First moves — max 5
 
@@ -258,3 +258,21 @@ protocol_bug_or_taxonomy_split:
 ```
 
 Do not infer operator time from wall time, transcript size, timestamps, receipts, or token count.
+
+## Optional — Mutation ledger (grant only)
+
+Fill only inside a granted tranche, never during diagnosis. One row per declaration.
+
+| Declaration | Mark | RA/EV | Keeper | Unique evidence lost if removed |
+| --- | --- | --- | --- | --- |
+| `<test name>` | `R` / `F` / `C` / `D` / `A` | | | `none` required for `D` |
+
+```yaml
+preservation:
+  keeper:                 # the test that must go red
+  production_line:        # the one line changed to prove it
+  went_red: true | false  # false means the old test is NOT deleted
+  restored: byte-for-byte
+  verify:                 # the command run at each step
+```
+

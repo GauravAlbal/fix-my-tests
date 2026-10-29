@@ -66,6 +66,11 @@ Both come from reading the production code, not the tests. Existing tests never 
 | EV-03 | — | `test_handler_exists` | that a function exists | n/a | `UNQUALIFIED` — hollow, verifies nothing |
 | EV-04 | RA-02 | (none) | — | — | `GAP` |
 
+**Why EV-02 counts as qualified, and how easily it wouldn't.** Its assertion is only real if the ledger *can* express the failure. Built as a list with a
+duplicate guard, removing the guard makes it fail with two rows. Built as a dict keyed by `event.id`, the same test passes even after the guard is removed,
+because a dict cannot hold two rows for one key — the assertion then measures the data structure, not the behaviour. Verified both ways while writing this
+example; it is the cheapest illustration of why "a test exists" and "a test can fail" are different claims.
+
 ## Portfolio
 
 ```text

@@ -7,7 +7,8 @@ description: >
   Derive product risks before inspecting the suite, assign evidence methods from
   failure mechanisms, qualify current evidence including oracle independence,
   and return the smallest trustworthy portfolio plus a bounded first repair.
-  Read-only diagnosis only.
+  Diagnose read-only by default. Mutate (delete hollow tests, consolidate duplicates,
+  add missing evidence) only with an explicit operator grant after a diagnosis sitting.
 license: CC-BY-4.0
 metadata:
   author: Gaurav Albal
@@ -24,9 +25,18 @@ Something about this repository's tests feels wrong, or the operator needs to kn
 
 What product risks deserve evidence here, what capability can expose each failure mechanism, what do current tests qualify as evidence for, and what is the smallest trustworthy portfolio appropriate to this repository?
 
-## Read-only
+## Mode (choose before opening other files)
 
-This pack diagnoses. It does not edit, delete, add, or move a test, and it does not touch production code. Dispositions (`KEEP`, `FIX_*`, `ADD_EVIDENCE`, `DELETE_CANDIDATE`) are recommendations for the operator to act on, named so the decision is explicit rather than implied.
+| Operator said | Mode | Writes? |
+| --- | --- | --- |
+| feels wrong / what should we test / are these real | `diagnose` | **no** |
+| prune / delete junk / remove tests that prove nothing | `mutate` grant=`prune` | after the ledger is shown |
+| add the missing tests / we have no coverage for X | `mutate` grant=`add` | after the ledger is shown |
+| fix them / prune and add | `mutate` grant=`prune_and_add` | after the ledger is shown |
+
+The default is diagnosis, and diagnosis never writes. A mutation grant must be explicit and must name the scope; "look at my tests" is not a grant. If the ask is mixed, diagnose first and mutate only if the grant matches.
+
+Dispositions (`KEEP`, `FIX_*`, `ADD_EVIDENCE`, `DELETE_CANDIDATE`) are recommendations in a diagnosis sitting and actions only inside a granted tranche.
 
 ## Required references
 
@@ -44,6 +54,7 @@ Load later, only when the question calls for it:
 | a disposition is contested | `PRINCIPLES.md` (hot 6 first) |
 | the operator wants an implementation-ready risk-to-evidence plan after diagnosis | `VERIFICATION_MAP.md` |
 | the output shape is unclear, or they ask what a diagnosis looks like | `examples/TINY.md` |
+| the operator granted mutation and the exit permits it | `MUTATE.md`, then `PRUNE.md` for deletions |
 
 ## Cold analysis (parent and children)
 
@@ -76,4 +87,8 @@ A test whose expected answer is materially derived from the same implementation 
 
 ## Exit
 
-Fill `SIT.md`, answer the operator's actual question at an explicit evidence boundary, name at most five first moves, choose exactly one first-repair exit, and stop. Do not modify the target repository. Do not claim the repository is safe.
+`diagnose`: fill `SIT.md`, answer the operator's actual question at an explicit evidence boundary, name at most five first moves, choose exactly one first-repair exit, and stop. Do not modify the target repository.
+
+`mutate`: only with a grant that matches the exit. Show the ledger, apply one tranche, prove preservation, report, and stop. Exit summaries name what was removed and where its unique evidence now lives.
+
+Neither mode may claim the repository is safe.

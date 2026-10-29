@@ -13,7 +13,7 @@ what can break?
 → keep / fix / add / delete / move
 ```
 
-It is a read-only [Agent Skill](https://agentskills.io/). It inspects your repository and tells you what your tests actually protect, what they miss, and what to do about it. It does not rewrite your tests.
+It is an [Agent Skill](https://agentskills.io/) that **diagnoses read-only by default**: it inspects your repository and tells you what your tests actually protect, what they miss, and what to do about it. It only writes if you explicitly grant a mutation step, and then one small tranche at a time with a preservation proof.
 
 ## What comes back
 
@@ -31,6 +31,11 @@ change detector), `GAP` — and at most five first moves.
 [See a full worked example →](fix-my-tests/examples/TINY.md) — three green tests, one
 genuine gap, one test that only asserts its own mock.
 
+A diagnosis stops there. Deleting the hollow tests is a **second, separate step**: it
+needs an explicit grant, it starts by showing you the ledger of what would go and what
+unique evidence each removal carries, and every delete must survive a preservation proof
+(break the contract, watch the keeper go red, restore the line).
+
 ## What's in the skill
 
 ```text
@@ -43,6 +48,8 @@ fix-my-tests/
   VERIFICATION_MAP.md    implementation-ready plan, optional and after diagnosis
   RUN_PROMPT.md          full execution constraints
   examples/TINY.md       a worked diagnosis on a three-test repo
+  MUTATE.md              the grant-gated write step (preconditions, ledger, one tranche)
+  PRUNE.md               deletion procedure and preservation proof
 ```
 
 ## Receipts
