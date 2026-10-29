@@ -523,11 +523,19 @@ Produce exactly these artifacts, in this order. Keep them as plain markdown or y
 4. Evidence       EV-NN | RA- | test/check | what it actually asserts |
                   oracle independent? | qualification
                   qualification ∈ QUALIFIED | PARTIAL | UNQUALIFIED (hollow,
-                  common-mode change detector, wrong method, wrong oracle) | GAP
+                  common-mode change detector, wrong method, wrong oracle) |
+                  GAP | UNKNOWN
+                  GAP means no candidate test exists for that risk: record it on
+                  the portfolio line with the missing capability, and do not
+                  invent an EV row for a test that does not exist
 5. Portfolio      per RA-: COVERED | UNDERCOVERED | GAP | INVALID | REDUNDANT |
                   DEFERRED | UNKNOWN, with the EV- that carries it
-6. Dispositions   per declaration — one row per existing test/check and one per
-                  risk without evidence: KEEP | FIX_* | ADD_EVIDENCE | DELETE_CANDIDATE
+6. Dispositions   one row per existing test/check, plus one row per risk whose row
+                  is GAP or UNDERCOVERED: KEEP | FIX_* | ADD_EVIDENCE |
+                  DELETE_CANDIDATE | DOWNGRADE_NONBLOCKING | QUARANTINE |
+                  MOVE_LATER | BIND_EVIDENCE | UNKNOWN
+                  ADD_EVIDENCE is per risk and names the capability it would buy;
+                  a test whose own status is UNKNOWN takes UNKNOWN, never KEEP
 7. Boundary       analysis scope, what was not opened, and explicit non-claims
 8. First moves    at most five, ordered
 9. Answer         the operator's question directly, at an explicit evidence boundary

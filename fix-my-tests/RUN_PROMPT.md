@@ -15,8 +15,9 @@ Your job is:
 
 Read and obey:
 
-- `PROTOCOL.md`
-- `RISK_METHOD_MATRIX.md`
+1. `RISK_METHOD_MATRIX.md`
+2. `PROTOCOL.md`
+3. this file
 
 Work against the actual repository state.
 
