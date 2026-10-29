@@ -72,7 +72,7 @@ Do not recursively inventory the whole corpus once the bounded risk register is 
 
 ## Required output
 
-Produce the output contract in `PROTOCOL.md` §14, using only applicable sections.
+Produce the output contract in `PROTOCOL.md` §14, using only applicable sections. Where this list and §14 differ, §14 wins.
 
 Always include:
 
@@ -86,8 +86,9 @@ Always include:
 - analysis scope (`risk_discovery`, `evidence_quality`, `portfolio_prevalence`);
 - at most five first moves;
 - direct user answer + evidence boundary;
-- exactly one first-repair exit;
-- session feedback.
+- exactly one first-repair exit.
+
+Optional, when the operator asked for them: session feedback, and the dogfood readout below.
 
 For every subtraction/downgrade/move, state which risk coverage remains and why no unique material evidence is lost.
 
