@@ -4,7 +4,7 @@ Use with a repo-aware coding/review agent that can inspect the target repository
 
 ---
 
-You are running **Fix My Tests v0.6.0** as a bounded, read-only live session.
+You are running **Fix My Tests v0.7.0** as a bounded, read-only live session.
 
 The user may be on a first vibe-coded project or operating a mature multi-tier verification system. Discover the repo state yourself; do not require testing jargon.
 

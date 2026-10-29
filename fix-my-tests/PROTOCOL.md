@@ -1,8 +1,10 @@
-# Fix My Tests — live protocol v0.6.0
+# Fix My Tests — live protocol v0.7.0
 
-Status: public protocol for the v0.6 line.
+Status: public protocol, v0.7.0. Diagnosis only — this pack derives risks, derives the capability each failure mechanism needs, and qualifies existing
+ evidence. It does not modify the target repository. The private line additionally carries a vacuity corpus audit, a sample-ordering index, and
+grant-gated mutation; none of that ships here.
 
-Read `RISK_METHOD_MATRIX.md` as governing evidence rules for this protocol.
+Read `RISK_METHOD_MATRIX.md` as normative method law. Load **sections** from `SKILL.md` — tiny diagnose is #0–4 and #9–11, not this file cover-to-cover.
 
 ## Moment
 
@@ -18,7 +20,7 @@ The existing suite is evidence to inspect. It is **not** the source of truth for
 
 ---
 
-# 0. Preserve the user's question
+# 0. Preserve the operator ask
 
 Record the user's actual question before routing.
 
@@ -47,7 +49,9 @@ Do not encode epistemic humility as vague `PARTIAL`. Say what was answered and b
 
 # 1. Orient without letting tests define the problem
 
-Recover only enough structure to find consequential product surfaces:
+Recover only enough structure to find consequential product surfaces. **This chat and every child** open current files. Do not assume production works, matches its name, or implements a claim. Do not assume a test or instrument (pytest, coverage, CI) is valid or **normative** for that claim until this sitting shows what it executes and asserts. Memory and agent summaries are not evidence.
+
+Fan out **read-only** research when owners or files are independent. Do not fan out writes onto the same file. For each child, parent re-opens ≥1 production file and, for every test-controlling mark, **that test**. `QUALIFIED` / `KEEP` / `R` / `D` on a test require parent-opened bytes for **that test**. Other child-cited paths stay `UNKNOWN`. Unread test → cannot QUALIFY or mark `R`/`D`/`KEEP`. Searched candidate paths with none found → `existing_tests: none`; do not invent EV- rows.
 
 ```text
 repo / revision
@@ -74,7 +78,7 @@ CADENCE
 UNKNOWN
 ```
 
-This is not the answer to the user's question.
+This is not the answer to the operator ask.
 
 ---
 
@@ -119,7 +123,7 @@ risk:
 
 ## Hard-invariant law
 
-`HARD_INVARIANT` cannot be offset by other passing tests.
+`HARD_INVARIANT` is noncompensatory.
 
 Many greens on lower-risk behavior cannot make an uncovered hard invariant acceptable.
 
@@ -133,7 +137,7 @@ If risk discovery is bounded rather than broad, say so. A clean sample of existi
 
 Before judging the existing test, derive what kind of evidence could expose the failure.
 
-Use the governing matrix in `RISK_METHOD_MATRIX.md`.
+Use the normative matrix in `RISK_METHOD_MATRIX.md`.
 
 Examples:
 
@@ -170,7 +174,9 @@ A test-size label (`unit`, `integration`, `e2e`) is not a sufficient capability 
 
 # 4. Map and qualify the existing evidence
 
-Only now inspect consequential tests/checks as evidence for the independently derived risk rows.
+Start from the risk rows and their required capability; the existing tests are inspected as evidence for those rows, never as the source of the rows. When the operator supplies a change scope, inspect tests covering the changed production files first; a coverage or import relationship never makes a test `QUALIFIED` and never means it executed.
+
+Only now inspect consequential tests/checks as evidence for the independently derived risk rows. Open those files this sitting. Fan out read-only inspection across independent owners.
 
 ```yaml
 evidence:
@@ -277,7 +283,7 @@ Do not trust opaque test code merely because it is test code.
 
 # 5. Reconcile risk coverage before optimizing the suite
 
-Every material risk in the bounded session receives one portfolio status:
+Every material risk in the bounded sitting receives one portfolio status:
 
 ```text
 COVERED
@@ -305,7 +311,7 @@ Do not let 50 easy covered rows compensate for one uncovered hard invariant.
 
 # 6. Representative test-quality analysis must be risk-driven
 
-If the user asks whether a large suite is useful/trustworthy/gnarly/redundant, inspect a bounded representative slice—but derive the slice **from the risk register**, not by picking tests that look diverse.
+If the operator asks whether a large suite is useful/trustworthy/gnarly/redundant, inspect a bounded representative slice—but derive the slice **from the risk register**, not by picking tests that look diverse.
 
 Selection order:
 
@@ -334,7 +340,7 @@ A good representative slice establishes quality of inspected evidence. It does n
 
 # 7. Find waste only after coverage is intelligible
 
-Use portfolio analysis when the suite is rich enough or the user explicitly asks about waste.
+Use portfolio analysis when the suite is rich enough or the operator explicitly asks about waste.
 
 Before delete/downgrade/move:
 
@@ -377,7 +383,7 @@ No deletion candidate is a valid result until subtraction preserves all material
 
 Evidence semantics come first. CI topology is not the ontology.
 
-Inspect hooks, hosted CI, release/nightly jobs, manual probes, live checks, or equivalent gates only when the user's question depends on **where** qualified evidence runs or whether it actually blocks the relevant transition.
+Inspect hooks, hosted CI, release/nightly jobs, manual probes, live checks, or equivalent gates only when the operator's question depends on **where** qualified evidence runs or whether it actually blocks the relevant transition.
 
 Use:
 
@@ -420,16 +426,18 @@ UNKNOWN
 
 Laws:
 
-- `ADD_EVIDENCE` requires a named risk + required capability.
+- `ADD_EVIDENCE` / `A` requires a named risk + required capability.
 - `FIX_ORACLE` includes common-mode oracles that need an independent authority/reference.
-- `DELETE_CANDIDATE` requires `UNIQUE_EVIDENCE_LOST_IF_REMOVED: none`.
+- `DELETE_CANDIDATE` / `D` requires `UNIQUE_EVIDENCE_LOST_IF_REMOVED: none`.
+- Dispositions are recommendations, not actions: `KEEP`, `FIX_*`, `ADD_EVIDENCE`, `DELETE_CANDIDATE`. This pack does not mutate the repository.
+- Qualify only from files opened this sitting.
 - `UNKNOWN` is preferable to a confident subtraction whose surviving evidence cannot be established.
 
 Return at most five first moves. Usually fewer.
 
 ---
 
-# 10. Answer the user separately from repair priority
+# 10. Answer the operator separately from repair priority
 
 Do not let a severe adjacent issue replace the original question.
 
@@ -467,19 +475,19 @@ Interpretation:
 - `INSTRUMENTS_FIRST` — flake, environment, stale/common-mode test machinery, or attribution prevents trustworthy interpretation.
 - `BINDING_FIRST` — qualified evidence exists but is not bound to the relevant progression boundary.
 - `CLEANUP_READY` — coverage is intelligible enough that subtraction/consolidation is the highest-value first move.
-- `NEEDS_MORE_EVIDENCE` — the session cannot establish the requested decision.
+- `NEEDS_MORE_EVIDENCE` — the sitting cannot establish the requested decision.
 - `NO_MATERIAL_CHANGE` — no consequential non-`KEEP` action is justified.
 
-This exit says what should be repaired first. It is not the user-answer disposition.
+This exit says what should be repaired first. It is not the operator-answer disposition.
 
 ---
 
-# 12. Session feedback and stop
+# 12. Dogfood readout and stop
 
 Record:
 
 ```yaml
-feedback:
+dogfood:
   active_operator_seconds: <measured integer> | null
   active_operator_time_source: measured | operator_estimate | unknown
   action_changed: yes | no | unclear
@@ -490,8 +498,8 @@ feedback:
   protocol_bug_or_taxonomy_split:
 ```
 
-Do not infer user time from wall time, transcript size, timestamps, receipts, or token count.
+Do not infer operator time from wall time, transcript size, timestamps, receipts, or token count.
 
 Stop when the bounded risk register and evidence qualification are sufficient to change the requested decision and the uncertainty boundary is explicit.
 
-Do not modify the target repository in the diagnostic session. Do not claim the repository is safe.
+Do not modify the target repository in the diagnostic sitting. Do not claim the repository is safe.

@@ -1,8 +1,8 @@
-# Fix My Tests — live sit v0.6.0
+# Fix My Tests — live sit v0.7.0
 
-Copy per session. One repo / one bounded test-system question. Read-only.
+Copy per sitting. Diagnostic half is read-only. Fill **Always**. Skip Optional unless that question is in the ask.
 
-## Identity
+## Always — Identity
 
 ```yaml
 repo:
@@ -12,11 +12,12 @@ date:
 operator_ask:
 operator_ask_source: explicit | reconstructed
 out_of_scope:
+read_only: true
 ```
 
-## First-repair routing
+## Always — First-repair routing
 
-Choose the dominant system problem only as a prioritization aid:
+Dominant system problem. **Not** the first-repair exit (those names differ: `MISSING_EVIDENCE` here vs `EVIDENCE_GAPS_FIRST` at exit). Fill both. Do not mix the two lists.
 
 ```text
 MINIMUM_FLOOR
@@ -29,13 +30,7 @@ CADENCE
 UNKNOWN
 ```
 
-Other applicable shapes:
-
-```text
-...
-```
-
-## Bounded risk register
+## Always — Bounded risk register
 
 Derive these rows independently of the existing tests. One row per material bad outcome.
 
@@ -43,7 +38,7 @@ Derive these rows independently of the existing tests. One row per material bad 
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | RA- |  |  |  | COMMON / PLAUSIBLE / RARE / UNKNOWN | CATASTROPHIC / HIGH / MODERATE / LOW / UNKNOWN | HARD_INVARIANT / MATERIAL / DEFERRED / UNKNOWN |  |  |  |  |
 
-Hard invariants cannot be offset by other passing tests.
+Hard invariants are noncompensatory.
 
 ### Discovery coverage
 
@@ -66,7 +61,7 @@ material_surfaces_not_resolved:
 
 Do not force a risk from every lens. Record why a consequential lens is not applicable or remains unknown when that matters.
 
-## Evidence capability derivation
+## Always — Evidence capability derivation
 
 Do this before judging current tests.
 
@@ -76,7 +71,7 @@ Do this before judging current tests.
 
 If the method derivation is not defensible, mark the required capability `UNKNOWN`.
 
-## Existing evidence mapping + qualification
+## Always — Existing evidence mapping + qualification
 
 | Evidence | Risk | Intended claim | Claim map | Falsifiable | Oracle | Oracle independence | Method fit | Real seam | Instrument | Current provenance | Qualification |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -116,7 +111,7 @@ characterization:
 
 Matching an old implementation is not automatically proof that the old behavior was correct.
 
-## Portfolio reconciliation
+## Always — Portfolio reconciliation
 
 Every material risk in scope gets one status.
 
@@ -126,9 +121,9 @@ Every material risk in scope gets one status.
 
 For hard invariants, only qualifying evidence can produce `COVERED`.
 
-## Representative analysis scope
+## Optional — Representative analysis scope
 
-Use when the user asked whether a nontrivial suite is useful/trustworthy/gnarly/redundant.
+Use when the operator asked whether a nontrivial suite is useful/trustworthy/gnarly/redundant.
 
 ```yaml
 risk_discovery_scope: BOUNDED | BROAD | UNKNOWN
@@ -145,7 +140,7 @@ what_this_does_not_establish:
 
 The sample must be selected from independently discovered risk rows/mechanisms, not from tests that merely look diverse.
 
-## Waste / overlap
+## Optional — Waste / overlap
 
 Use only when coverage is intelligible enough to reason about subtraction.
 
@@ -161,7 +156,7 @@ burden_fact:
 
 `UNKNOWN` blocks confident deletion.
 
-## Execution / binding / cadence
+## Optional — Execution / binding / cadence
 
 Use only when where/how evidence runs affects the problem.
 
@@ -175,7 +170,7 @@ Use:
 - `UNBOUND_AUTHORITY` when required/qualified evidence is not stably required where needed;
 - `MOVE_LATER` only when the later cadence is appropriate and the earlier boundary remains sufficiently protected.
 
-## Consequential dispositions
+## Always — Consequential dispositions
 
 Every disposition references a risk row or explicit verification-system risk.
 
@@ -183,9 +178,9 @@ Every disposition references a risk row or explicit verification-system risk.
 | --- | --- | --- | --- | --- | --- |
 |  | KEEP / FIX_ORACLE / FIX_INSTRUMENT / REPLACE_METHOD / ADD_EVIDENCE / DELETE_CANDIDATE / DOWNGRADE_NONBLOCKING / QUARANTINE / MOVE_LATER / BIND_EVIDENCE / UNKNOWN | RA- / verification risk |  |  |  |
 
-`ADD_EVIDENCE` without a named risk + required capability is invalid.
+`ADD_EVIDENCE` without a named risk + required capability is invalid. Diagnose: these names only, as recommendations. This pack does not modify the repository. Verification-system rows use Risk = verification risk, not a fake RA-.
 
-## First moves — max 5
+## Always — First moves — max 5
 
 ```yaml
 move:
@@ -202,7 +197,7 @@ move:
 
 Repeat only as justified.
 
-## Answer the user's question
+## Always — Answer the operator ask
 
 Answer separately from repair priority.
 
@@ -217,7 +212,7 @@ operator_answer:
 
 Do not use generic `PARTIAL`. If something useful was established, answer it and state the boundary. If the requested decision genuinely cannot be answered, use `NEEDS_MORE_EVIDENCE`.
 
-## First-repair exit
+## Always — First-repair exit
 
 Choose exactly one:
 
@@ -232,7 +227,7 @@ NEEDS_MORE_EVIDENCE
 NO_MATERIAL_CHANGE
 ```
 
-This says what should be repaired first. It is not the user-answer disposition.
+This says what should be repaired first. It is not the operator-answer disposition.
 
 `NO_MATERIAL_CHANGE` is legal only when no consequential non-`KEEP` action is justified.
 
@@ -240,7 +235,16 @@ This says what should be repaired first. It is not the user-answer disposition.
 
 One paragraph. No score.
 
-## Session feedback
+## Always — Dogfood readout
+
+If the operator did not time the sitting:
+
+```yaml
+active_operator_seconds: null
+active_operator_time_source: unknown
+```
+
+Do not invent the rest. Leave `unclear` / empty.
 
 ```yaml
 active_operator_seconds: <measured integer> | null
@@ -253,6 +257,4 @@ missing_input_that_mattered:
 protocol_bug_or_taxonomy_split:
 ```
 
-Do not infer user time from wall time, transcript size, timestamps, receipts, or token count.
-
-Stop. Do not modify the repo or expand into a broader assurance program automatically.
+Do not infer operator time from wall time, transcript size, timestamps, receipts, or token count.

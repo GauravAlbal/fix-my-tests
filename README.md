@@ -31,6 +31,29 @@ change detector), `GAP` — and at most five first moves.
 [See a full worked example →](fix-my-tests/examples/TINY.md) — three green tests, one
 genuine gap, one test that only asserts its own mock.
 
+## What's in the skill
+
+```text
+fix-my-tests/
+  SKILL.md               entry point: moment, order, read-only boundary
+  RISK_METHOD_MATRIX.md  risk, failure-mechanism, oracle-independence law
+  PROTOCOL.md            the bounded procedure
+  SIT.md                 output contract (what gets filled in)
+  PRINCIPLES.md          counter-patterns, loaded only when a call is contested
+  VERIFICATION_MAP.md    implementation-ready plan, optional and after diagnosis
+  RUN_PROMPT.md          full execution constraints
+  examples/TINY.md       a worked diagnosis on a three-test repo
+```
+
+## Receipts
+
+Two read-only analyses, each at a named revision:
+
+- [78 green tests, one unchecked byte pair](notes/CASE_h11_chunk_footer.md) — `python-hyper/h11` at the commit before CVE-2025-43859. Three adversarial chunk terminators were accepted before the fix and rejected after; verified against both revisions.
+- [5,747 tests that cannot answer the business question](notes/CASE_wedding_app.md) — a real AI-written production app. The suite is large and assertion-dense; the live money, identity, and durability seams have no qualifying evidence, and the one live check exits 0 unless an env var is set.
+
+Neither claims a defect was prevented, and neither claims prevalence.
+
 ## Try it now — no install
 
 Paste this into any coding agent (Claude, Cursor, Windsurf, Copilot, etc.) that can read web links:
