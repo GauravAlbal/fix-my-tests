@@ -17,7 +17,6 @@ Read and obey:
 
 - `PROTOCOL.md`
 - `RISK_METHOD_MATRIX.md`
-- `SIT.md`
 
 Work against the actual repository state.
 
@@ -73,7 +72,7 @@ Do not recursively inventory the whole corpus once the bounded risk register is 
 
 ## Required output
 
-Fill `SIT.md` using only applicable sections.
+Produce the output contract in `PROTOCOL.md` §14, using only applicable sections.
 
 Always include:
 

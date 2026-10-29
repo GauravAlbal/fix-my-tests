@@ -508,3 +508,35 @@ Do not modify the target repository in the diagnostic sitting. Do not claim the 
 
 Diagnosis does not modify the target repository. Mutation proceeds only when the operator has granted it explicitly and the first-repair exit permits it; `MUTATE.md` is the whole of that authority, and `PRUNE.md` governs deletions. Show the ledger before editing, apply one tranche, prove preservation by making the keeper go red on one production line and restoring it byte for byte, report, and stop.
 
+# 14. Output contract
+
+Produce exactly these artifacts, in this order. Keep them as plain markdown or yaml — no template scaffolding, no empty sections. Omit a section only when the answer genuinely does not need it, and say why.
+
+```text
+1. Identity       repo, revision audited, the operator's ask in their words,
+                  scope and out-of-scope, read_only: true | false
+2. Risks          RA-NN | product surface | material bad outcome | obligation
+                  obligation ∈ HARD_INVARIANT | MATERIAL | DEFERRED | UNKNOWN
+3. Capability     per RA-: failure mechanism -> the evidence that could expose it
+                  (never a test level: name inputs, fault, schedule, or interaction)
+4. Evidence       EV-NN | RA- | test/check | what it actually asserts |
+                  oracle independent? | qualification
+                  qualification ∈ QUALIFIED | UNQUALIFIED (hollow, common-mode
+                  change detector, wrong method, wrong oracle) | GAP
+5. Portfolio      per RA-: COVERED | UNDERCOVERED | GAP | INVALID | REDUNDANT |
+                  DEFERRED | UNKNOWN, with the EV- that carries it
+6. Dispositions   per declaration: KEEP | FIX_* | ADD_EVIDENCE | DELETE_CANDIDATE
+                  recommendations in diagnosis; actions only under MUTATE.md
+7. Boundary       what was not opened, scope limits, and explicit non-claims
+8. First moves    at most five, ordered
+9. Exit           exactly one first-repair exit
+```
+
+Rules that make the output comparable across sittings:
+
+- Every `QUALIFIED` names the test the parent opened and why its oracle is independent.
+- Every `GAP` names the capability that is missing, not just "no tests".
+- `UNKNOWN` is a legitimate value and must not be filled with a guess.
+- No health score, no coverage percentage as a summary, no additive confidence total.
+- Answer the operator's actual question separately from repair priority.
+

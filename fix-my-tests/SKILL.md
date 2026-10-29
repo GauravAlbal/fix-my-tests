@@ -43,9 +43,8 @@ Dispositions (`KEEP`, `FIX_*`, `ADD_EVIDENCE`, `DELETE_CANDIDATE`) are recommend
 Read and obey the sibling files in this order:
 
 1. `RISK_METHOD_MATRIX.md` — governing risk, failure-mechanism, oracle-independence, and evidence-method law.
-2. `PROTOCOL.md` — bounded analysis procedure and decision contracts.
-3. `SIT.md` — output contract.
-4. `RUN_PROMPT.md` — full execution constraints.
+2. `PROTOCOL.md` — bounded analysis procedure, decision contracts, and the output contract (§14).
+3. `RUN_PROMPT.md` — full execution constraints.
 
 Load later, only when the question calls for it:
 
@@ -87,7 +86,7 @@ A test whose expected answer is materially derived from the same implementation 
 
 ## Exit
 
-`diagnose`: fill `SIT.md`, answer the operator's actual question at an explicit evidence boundary, name at most five first moves, choose exactly one first-repair exit, and stop. Do not modify the target repository.
+`diagnose`: produce the output contract in `PROTOCOL.md` §14, answer the operator's actual question at an explicit evidence boundary, name at most five first moves, choose exactly one first-repair exit, and stop. Do not modify the target repository.
 
 `mutate`: only with a grant that matches the exit. Show the ledger, apply one tranche, prove preservation, report, and stop. Exit summaries name what was removed and where its unique evidence now lives.
 

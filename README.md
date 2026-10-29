@@ -42,8 +42,7 @@ unique evidence each removal carries, and every delete must survive a preservati
 fix-my-tests/
   SKILL.md               entry point: moment, order, read-only boundary
   RISK_METHOD_MATRIX.md  risk, failure-mechanism, oracle-independence law
-  PROTOCOL.md            the bounded procedure
-  SIT.md                 output contract (what gets filled in)
+  PROTOCOL.md            the bounded procedure and the output contract (§14)
   PRINCIPLES.md          counter-patterns, loaded only when a call is contested
   VERIFICATION_MAP.md    implementation-ready plan, optional and after diagnosis
   RUN_PROMPT.md          full execution constraints
@@ -258,7 +257,6 @@ uvx --from skills-ref agentskills validate ./fix-my-tests
 | [`SKILL.md`](fix-my-tests/SKILL.md) | Entry point — tells the agent when and how to run |
 | [`PROTOCOL.md`](fix-my-tests/PROTOCOL.md) | Full analysis procedure |
 | [`RISK_METHOD_MATRIX.md`](fix-my-tests/RISK_METHOD_MATRIX.md) | How to match failure types to the right kind of test |
-| [`SIT.md`](fix-my-tests/SIT.md) | Output template the agent fills in |
 | [`RUN_PROMPT.md`](fix-my-tests/RUN_PROMPT.md) | Execution rules and constraints |
 | [`VERIFICATION_MAP.md`](fix-my-tests/VERIFICATION_MAP.md) | Risk → test implementation plan |
 
