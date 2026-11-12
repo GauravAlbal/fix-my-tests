@@ -1,6 +1,6 @@
 # Fix My Tests — risk / method kernel
 
-**Status:** normative for Fix My Tests v0.7.0. This is a bounded RACS kernel, not a universal risk catalog or an exhaustive assurance-planning engagement.
+**Status:** normative for Fix My Tests v0.7.1. This is a bounded RACS kernel, not a universal risk catalog or an exhaustive assurance-planning engagement.
 
 ## Governing law
 

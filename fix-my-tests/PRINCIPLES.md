@@ -1,8 +1,16 @@
-# Fix My Tests — principle bindings v0.7.0
+# Fix My Tests — principle bindings v0.7.1
 
 Load only when a prune/add **mark is contested**, or when writing a campaign brief. Diagnosis does not need this file.
 
 Cite a principle only if it **changed a mark, keeper, refuse, or stop**. Empty is correct.
+
+## Terms used here
+
+**Sitting.** One bounded analysis of a named repository state: the operator ask, files opened this run, risk register, qualifications, dispositions, and exit. This public pack has no sitting-template file; the output contract is `PROTOCOL.md` §14. "This sitting" means the current run. Prior sittings, memory, and summaries are not evidence.
+
+**Constitution.** Shorthand for the numbered engineering constraints bound in the lookup table below (C1, C21, …). "Constitution #21" means row C21: write the oracle from the RA- claim before copying implementation output. The public pack does not require a private constitution file.
+
+**Scale.** Tiny versus campaign is the `SKILL.md` Scale table. Default tiny: one writer, one `MUTATE.md` tranche, no lanes/pilot. Campaign only when the diagnosis names a whole subsystem or many files; still one writer per file, one reported tranche at a time.
 
 ## Hot 6
 
@@ -13,7 +21,7 @@ Cite a principle only if it **changed a mark, keeper, refuse, or stop**. Empty i
 | C16 | guess `unique-lost: none` | leave UNKNOWN; block `D` |
 | C21 | copy expects from the implementation | write oracle from the `RA-` claim first |
 | C19/C22 | keep a spy-mock of the claimed seam | real-boundary keeper or refuse |
-| P-sub | add tests then maybe prune | `D`/`C`/`F` before `A`, except HI gap in the same tranche |
+| P-sub | treat repair priority as permission | grant × action first (`MUTATE.md`); `D`/`C`/`F` before `A` only when authorized, except HI keeper in the same tranche |
 
 Full table below is lookup. Do not paste it into briefs. ≤3 ids on a unit.
 
@@ -30,7 +38,7 @@ Diagnosis ≠ qualification ≠ preservation. Sit RA- is canonical for product r
 | C5 | second inventory of one contract | one keeper |
 | C9 | LLM rubric as accept | pytest / a red-for-the-right-reason test |
 | C10 | easy greens offsetting HI gap | HI COVERED only via QUALIFIED |
-| C11 | full campaign on a tiny suite | SKILL scale table |
+| C11 | full campaign on a tiny suite | `SKILL.md` Scale table |
 | C12 | rediscovering the import graph | an import relationship as inspection order only |
 | C14 | verifier sees worker rationale | structural independence |
 | C16 | guessed unique-lost none | UNKNOWN blocks D |
@@ -41,7 +49,7 @@ Diagnosis ≠ qualification ≠ preservation. Sit RA- is canonical for product r
 | C25 | test-only production API | delete seam |
 | HF1 | automate a bad suite | delete then add |
 | HF2 | weaken test to go green | fix prod or re-derive |
-| P-sub | add-then-prune | PROCESS sequence |
+| P-sub | use repair order as permission | `MUTATE.md` grant × action, then authorized tranche order |
 | P-beh | call-shape as default | observable contract |
 | P-prove | compile as done | named VERIFY |
 | P-seq | mixed-lane mega-PR | unit ends in check |

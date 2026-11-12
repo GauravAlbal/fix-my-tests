@@ -24,9 +24,9 @@ The product risks that decide whether this app works are:
 
 | Risk | What would have to be true | Status | Why |
 |---|---|---|---|
-| RA-01 | A real payment completes and the webhook subscribes | `GAP` | no test reaches live Stripe; local fakes cannot cover a hard invariant |
-| RA-02 | Refunds and disputes are handled | `GAP` | no live path exercised |
-| RA-03 | Real Clerk JWKS verification | `GAP` | adversarial coverage exists against a fixture, not the live issuer |
+| RA-01 | A real payment completes and the webhook subscribes | `GAP` | this sitting found no qualifying evidence at the Stripe seam; local fakes of that seam do not establish the live payment claim. A separately named pure handler claim could use hermetic evidence; this sitting did not find the business payment question covered that way either |
+| RA-02 | Refunds and disputes are handled | `GAP` | this sitting found no qualifying refund/dispute evidence; no live path was exercised, and no hermetic oracle for those claims was qualified either |
+| RA-03 | Real Clerk JWKS verification | `GAP` | adversarial coverage exists against a fixture, not the live issuer. A fixture can qualify parser/claim-shape unit claims; it does not establish live-issuer verification |
 | RA-05 | Data survives a Fly volume loss | `GAP` | no restore drill; local sqlite backup/restore is a different claim |
 | RA-06 | A customer can return to their purchase from a public URL | `GAP` | the Playwright run recorded failure (stale provenance) |
 | RA-07 | Two browsers see the same chart on Fly | `GAP` | single-browser local evidence only |
@@ -55,14 +55,14 @@ dominant problem:  REAL_SEAM_UNTESTED  (RA-01, RA-02, RA-03, RA-07)
 first-repair exit: EVIDENCE_GAPS_FIRST
 ```
 
-Not "write more tests". The material next action was to **stop adding local volume and go prove the live seams** — one real checkout, one real refund, one restore from a Fly snapshot — because no quantity of local tests can convert into evidence for a live-seam invariant.
+Not "write more tests". The material next action in this sitting was to **stop adding local volume on already-mapped claims and obtain evidence that can actually fail for the unpaid seams** — including one real checkout, one real refund, and one restore from a Fly snapshot where those are the named claims. Hermetic unit or property evidence can still qualify a pure local claim; live observations cannot replace required hermetic seam evidence, and local volume cannot replace a live-seam claim.
 
 ## Why this one is worth telling
 
-Because it is the normal outcome, not the pathological one. A capable agent wrote a large, careful, assertion-dense suite; every assertion is defensible; and the suite is still pointed at the wrong question, because tests are written from the code that exists rather than from the failures that matter.
+Because it is an observed bounded sitting, not a prevalence claim. A capable agent wrote a large, careful, assertion-dense suite; every assertion is defensible; and in this repository at this revision the suite is still pointed at the wrong question, because tests are written from the code that exists rather than from the failures that matter. This note does not claim that most AI-written suites look like this.
 
 > 5,747 tests, and not one of them could tell you whether a payment went through.
 
 ## Scope
 
-Measured on the operator's own application, read-only, at the revision above. Counts are reproducible with the grep/find commands in this note's history. The sitting that produced the risk table is `agent-skills-internal/dogfood/fix-my-tests-v0.5/AI_GENERATED_APP.md`, which explicitly claims no defect reduction and no safety — only that the diagnosis was bounded and changed a material next action.
+Measured on the operator's own application, read-only, at the revision above. Counts are reproducible with the grep/find commands in this note's history. The sitting that produced the risk table is kept in a private dogfood record. That record explicitly claims no defect reduction and no safety — only that the diagnosis was bounded and changed a material next action.

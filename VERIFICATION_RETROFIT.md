@@ -1,6 +1,6 @@
 # Verification Retrofit — founding pilot
 
-Fix My Tests is read-only diagnosis. Verification Retrofit is the bounded implementation job that follows when the diagnosis is right and the remaining burden is rebuilding evidence.
+Fix My Tests diagnoses read-only by default. Explicit grants (`prune`, `add`, `prune_and_add`) are a separate mutation step in the skill. Verification Retrofit is the bounded implementation job that follows when the diagnosis is right and the remaining burden is rebuilding evidence.
 
 ## Job
 

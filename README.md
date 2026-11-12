@@ -40,7 +40,7 @@ unique evidence each removal carries, and every delete must survive a preservati
 
 ```text
 fix-my-tests/
-  SKILL.md               entry point: moment, order, read-only boundary
+  SKILL.md               entry point: moment, order, diagnosis/mutation boundary
   RISK_METHOD_MATRIX.md  risk, failure-mechanism, oracle-independence law
   PROTOCOL.md            the bounded procedure and the output contract (§14)
   PRINCIPLES.md          counter-patterns, loaded only when a call is contested
@@ -70,7 +70,8 @@ Use Fix My Tests on this repository.
 Read the skill at:
 https://github.com/GauravAlbal/fix-my-tests/tree/main/fix-my-tests
 
-Start with SKILL.md and follow the required references. Work read-only.
+Start with SKILL.md and follow the required references. Diagnose read-only
+unless I explicitly grant prune, add, or prune_and_add.
 
 My question:
 <put your test-system question here>
@@ -88,7 +89,8 @@ Use Fix My Tests on this repository.
 Read the current skill at:
 https://github.com/GauravAlbal/fix-my-tests/tree/main/fix-my-tests
 
-Start with SKILL.md and obey the required sibling references. Work read-only.
+Start with SKILL.md and obey the required sibling references. Diagnose read-only
+unless I explicitly grant prune, add, or prune_and_add.
 Preserve my exact question. Derive the material product risks before inspecting
 my tests. For each risk, derive the failure mechanism and the evidence capability
 that could actually expose it. Then qualify the current tests, including whether
@@ -262,8 +264,8 @@ uvx --from skills-ref agentskills validate ./fix-my-tests
 
 ## Limits
 
-Fix My Tests is a diagnosis, not a safety certification. The skill instructs the agent not to modify your repository, but we cannot guarantee agent behavior — check what it did before you commit. A clean result does not prove that every possible product risk was discovered.
+Fix My Tests is not a safety certification. Diagnosis does not modify your repository. Mutation happens only if you explicitly grant `prune`, `add`, or `prune_and_add`, and then one small tranche at a time with a preservation proof. We cannot guarantee agent behavior — check the diff before you commit. A clean result does not prove that every possible product risk was discovered.
 
 ## License
 
-CC BY 4.0. See [LICENSE.md](LICENSE.md).
+CC BY 4.0. See [LICENSE.md](LICENSE.md). Release notes: [CHANGELOG.md](CHANGELOG.md).

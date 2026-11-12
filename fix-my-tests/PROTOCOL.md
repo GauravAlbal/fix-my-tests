@@ -1,8 +1,6 @@
-# Fix My Tests — live protocol v0.7.0
+# Fix My Tests — live protocol v0.7.1
 
-Status: public protocol, v0.7.0. Diagnosis only — this pack derives risks, derives the capability each failure mechanism needs, and qualifies existing
- evidence. Diagnosis does not modify the target repository; writing is a separate granted step (`MUTATE.md`). The private line additionally carries a vacuity corpus audit, a sample-ordering index, and
-grant-gated mutation; none of that ships here.
+Status: public protocol, v0.7.1. Diagnosis is read-only by default: this pack derives risks, derives the capability each failure mechanism needs, and qualifies existing evidence. Diagnosis does not modify the target repository. Writing is a separate granted step (`MUTATE.md`) with explicit modes `prune`, `add`, and `prune_and_add`. Optional private extensions (a vacuity corpus audit, a sample-ordering index) are not part of this pack and are never required; public grant-gated mutation is.
 
 Read `RISK_METHOD_MATRIX.md` as normative method law. This file is written to be followed in order, and a small repository does not need every section: §0–4 and §9–11 are enough for a one-area diagnosis. §5–8 apply when the portfolio or the execution model is in question, and §13 only exists under a mutation grant.
 
@@ -429,7 +427,7 @@ Laws:
 - `ADD_EVIDENCE` / `A` requires a named risk + required capability.
 - `FIX_ORACLE` includes common-mode oracles that need an independent authority/reference.
 - `DELETE_CANDIDATE` / `D` requires `UNIQUE_EVIDENCE_LOST_IF_REMOVED: none`.
-- Dispositions are recommendations, not actions: `KEEP`, `FIX_*`, `ADD_EVIDENCE`, `DELETE_CANDIDATE`. This pack does not mutate the repository.
+- Dispositions in a diagnosis sitting are recommendations, not actions: `KEEP`, `FIX_*`, `ADD_EVIDENCE`, `DELETE_CANDIDATE`. Diagnosis does not mutate the repository. Granted writes happen only through `MUTATE.md`, and only for the intersected grant × actual action.
 - Qualify only from files opened this sitting.
 - `UNKNOWN` is preferable to a confident subtraction whose surviving evidence cannot be established.
 
@@ -506,7 +504,7 @@ Do not modify the target repository in the diagnostic sitting. Do not claim the 
 
 # 13. Mutation (grant only)
 
-Diagnosis does not modify the target repository. Mutation proceeds only when the operator has granted it explicitly and the first-repair exit permits it; `MUTATE.md` is the whole of that authority, and `PRUNE.md` governs deletions. Show the ledger before editing, apply one tranche, prove preservation by making the keeper go red on one production line and restoring it byte for byte, report, and stop.
+Diagnosis does not modify the target repository. Mutation proceeds only when the operator has granted `prune`, `add`, or `prune_and_add` explicitly. `MUTATE.md` is the whole of that authority, and `PRUNE.md` governs deletions. Intersect grant × actual action before repair priority: add-only never removes or relaxes assertions; prune-only never mints new-risk evidence or broadens product changes; `prune_and_add` / “fix them” does not authorize production behavior changes unless the operator names that owner repair; `F` is not a permission wildcard; urgency cannot expand authorization. Show the ledger before editing, apply one authorized tranche, prove preservation by making the keeper go red on one production line and restoring it byte for byte, report, and stop.
 
 # 14. Output contract
 

@@ -4,8 +4,8 @@ Use with a repo-aware coding/review agent that can inspect the target repository
 
 ---
 
-You are running **Fix My Tests v0.7.0** as a bounded live session. It is read-only unless the operator has explicitly granted mutation; a grant is
-only usable after the diagnosis is complete and `MUTATE.md`'s preconditions hold.
+You are running **Fix My Tests v0.7.1** as a bounded live session. Diagnosis is read-only by default. Mutation is allowed only when the operator has explicitly granted `prune`, `add`, or `prune_and_add`; a grant is
+only usable after the diagnosis is complete and `MUTATE.md`'s preconditions hold, including grant × actual-action intersection.
 
 The user may be on a first vibe-coded project or operating a mature multi-tier verification system. Discover the repo state yourself; do not require testing jargon.
 
@@ -51,7 +51,7 @@ Work against the actual repository state.
 26. Answer the user separately from the first repair class. Use `ANSWERED | NEEDS_MORE_EVIDENCE` plus an explicit evidence scope; do not hide boundedness behind generic `PARTIAL`.
 27. Return at most five first moves; usually fewer.
 28. Do not invent savings, defect rates, flake rates, or user time.
-29. Do not modify code, tests, hooks, workflows, CI, tasks, or tracked files in this session.
+29. Diagnosis default is read-only: do not modify code, tests, hooks, workflows, CI, tasks, or tracked files unless the operator granted `prune`, `add`, or `prune_and_add` and `MUTATE.md` authorizes the actual action. Add-only never removes or relaxes assertions; prune-only never mints new-risk evidence or broadens product changes. `prune_and_add` / “fix them” does not authorize production behavior changes unless the operator names that owner repair. `F` is not a permission wildcard; urgency cannot expand authorization.
 30. Delegation is read-only. Child agents may inspect/search only. If the delegation mechanism cannot guarantee no writes, no task creation, no submission, and no acceptance side effects, **do not delegate**.
 31. Choose exactly one first-repair exit and stop. `NO_MATERIAL_CHANGE` is legal only when no consequential non-`KEEP` disposition is justified.
 

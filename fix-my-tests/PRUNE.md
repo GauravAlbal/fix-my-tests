@@ -1,7 +1,7 @@
-# Fix My Tests — prune procedure v0.7.0
+# Fix My Tests — prune procedure v0.7.1
 
-Status: public. Load only from `MUTATE.md`, after a diagnosis sitting and an explicit prune grant. This file governs deleting tests. It never
-authorises deleting production behaviour.
+Status: public. Load only from `MUTATE.md`, after a diagnosis sitting and an explicit `prune` or `prune_and_add` grant. An add-only grant cannot enter this file. This file governs deleting tests. It never
+authorises deleting production behaviour. Apply `MUTATE.md` Grant × action first: prune-only never mints new-risk evidence; if a deletion needs a new keeper outside grant, leave that owner intact and report the missing add permission.
 
 ## Retention bar
 
@@ -9,7 +9,7 @@ Keep independent public API, SDK, protocol, config, migration, storage, security
 
 Static or slow ≠ disposable. Source inspection is valid only when it is the cheapest independent guard of a user-facing key/byte/path **and** survives identifier-only refactoring.
 
-A baseline failure may be a product bug: reproduce and repair the owner. Never delete the test to clear the failure.
+A baseline failure may be a product bug: reproduce and report it; repair the production owner only within the original authorized ask, not because a test grant exists. Never delete the test to clear the failure.
 
 Map retention to the sitting: a retained test must remain `R`/`F` with `RA-`/`EV-` ids, or it is unverified inventory.
 

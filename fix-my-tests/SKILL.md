@@ -9,10 +9,11 @@ description: >
   and return the smallest trustworthy portfolio plus a bounded first repair.
   Diagnose read-only by default. Mutate (delete hollow tests, consolidate duplicates,
   add missing evidence) only with an explicit operator grant after a diagnosis sitting.
+  Granted modes: prune, add, prune_and_add.
 license: CC-BY-4.0
 metadata:
   author: Gaurav Albal
-  version: "0.7.0"
+  version: "0.7.1"
 ---
 
 # Fix My Tests
@@ -34,9 +35,20 @@ What product risks deserve evidence here, what capability can expose each failur
 | add the missing tests / we have no coverage for X | `mutate` grant=`add` | after the ledger is shown |
 | fix them / prune and add | `mutate` grant=`prune_and_add` | after the ledger is shown |
 
-The default is diagnosis, and diagnosis never writes. A mutation grant must be explicit and must name the scope; "look at my tests" is not a grant. If the ask is mixed, diagnose first and mutate only if the grant matches.
+The default is diagnosis, and diagnosis never writes. Explicitly granted modes: `prune`, `add`, `prune_and_add`. A mutation grant must be explicit and must name the scope; "look at my tests" is not a grant. If the ask is mixed, diagnose first and mutate only if the grant matches.
+
+Intersect **grant × actual action** before repair priority (`MUTATE.md`): add-only never removes or relaxes assertions and never permits `C`/`D`; prune-only never mints new-risk evidence, never permits `A`, and never broadens product changes; `F` is not a permission wildcard; urgency cannot expand authorization. Out-of-grant dependencies are reported while independent authorized work proceeds. A real product defect is never erased by deleting its test. `prune_and_add` / “fix them” is test mutation: report a product defect; change production behavior only when the operator names that owner repair.
 
 Dispositions (`KEEP`, `FIX_*`, `ADD_EVIDENCE`, `DELETE_CANDIDATE`) are recommendations in a diagnosis sitting and actions only inside a granted tranche.
+
+## Scale
+
+Default **tiny**. Promote to campaign only when the diagnosis names a whole subsystem or many files.
+
+| If | Do |
+| --- | --- |
+| default / one area | **tiny:** one writer. Fan-out read-only research if files are independent. Skip lanes/pilot. One `MUTATE.md` tranche, then stop and report. |
+| diagnosis names a subsystem / many files | **campaign:** still one writer per file; repeat `MUTATE.md` tranches per owner. Do not start a later tranche before reporting the current one. Tiny diagnosis can finish without campaign scaffolding. |
 
 ## Required references
 
@@ -53,7 +65,7 @@ Load later, only when the question calls for it:
 | a disposition is contested | `PRINCIPLES.md` (hot 6 first) |
 | the operator wants an implementation-ready risk-to-evidence plan after diagnosis | `VERIFICATION_MAP.md` |
 | the output shape is unclear, or they ask what a diagnosis looks like | `examples/TINY.md` |
-| the operator granted mutation and the exit permits it | `MUTATE.md`, then `PRUNE.md` for deletions |
+| the operator granted mutation, the exit permits it, and grant × action authorizes the write | `MUTATE.md`, then `PRUNE.md` for deletions |
 
 ## Cold analysis (parent and children)
 
@@ -88,6 +100,6 @@ A test whose expected answer is materially derived from the same implementation 
 
 `diagnose`: produce the output contract in `PROTOCOL.md` §14, answer the operator's actual question at an explicit evidence boundary, name at most five first moves, choose exactly one first-repair exit, and stop. Do not modify the target repository.
 
-`mutate`: only with a grant that matches the exit. Show the ledger, apply one tranche, prove preservation, report, and stop. Exit summaries name what was removed and where its unique evidence now lives.
+`mutate`: only with a grant that matches the exit **and** the actual action. Show the ledger, apply one authorized tranche, prove preservation, report, and stop. Exit summaries name what was removed, where its unique evidence now lives, and which out-of-grant dependencies remain.
 
 Neither mode may claim the repository is safe.
