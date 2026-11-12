@@ -80,3 +80,23 @@ grep -rn "footer" h11/tests/*.py        # no matches
 ```
 
 Then ask this skill for a read-only diagnosis of the chunked reader, and compare the risk register to the list above.
+
+## Try it on your suite
+
+Pick the one place in your product where accepting bad input would hurt, and name the bad outcome: a webhook that grants access twice, a parser that accepts a malformed message, a payment path that charges without recording. Paste this into your coding agent:
+
+```text
+Use Fix My Tests on this repository.
+
+Read the skill at:
+https://github.com/GauravAlbal/fix-my-tests/tree/main/fix-my-tests
+
+Start with SKILL.md and follow the required references. Diagnose read-only
+unless I explicitly grant prune, add, or prune_and_add.
+
+My question:
+My suite is green. The outcome I care about is <the bad outcome you named>.
+Which of my tests, if any, could fail if that happened?
+```
+
+If your agent cannot read the link, [install the skill](../README.md#install-as-an-agent-skill) instead. If it found a gap like this one, or found that your tests already cover it, [tell me what it changed](https://github.com/GauravAlbal/agent-skills/issues/new?template=skill-feedback.yml).

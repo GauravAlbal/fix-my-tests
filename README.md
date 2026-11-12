@@ -176,7 +176,15 @@ Fix My Tests can also conclude that a test is useful, that deletion is unsafe, o
 
 The Agent Skills artifact is the [`fix-my-tests/`](fix-my-tests/) directory. The repository root just carries the README, license, and project material around it.
 
-Agent Skills defines the skill format, not one universal install location. Point your client's skill discovery root at that directory.
+With the [skills CLI](https://skills.sh), from your project:
+
+```sh
+npx skills add GauravAlbal/fix-my-tests
+```
+
+That copies `fix-my-tests/` into the project's agent skill directories. Checked on 2026-11-12 with skills CLI 1.8.1 and Claude Code 2.1.304: after a project-level install, Claude Code listed and loaded the skill. Other hosts and user-level (`-g`) installs have not been checked. Restart your client so it loads the skill, then [run it](#run-it-after-installation).
+
+To install by hand instead: Agent Skills defines the skill format, not one universal install location, so point your client's skill discovery root at that directory.
 
 For clients that discover user skills under `~/.agents/skills/`:
 
@@ -261,6 +269,14 @@ uvx --from skills-ref agentskills validate ./fix-my-tests
 | [`RISK_METHOD_MATRIX.md`](fix-my-tests/RISK_METHOD_MATRIX.md) | How to match failure types to the right kind of test |
 | [`RUN_PROMPT.md`](fix-my-tests/RUN_PROMPT.md) | Execution rules and constraints |
 | [`VERIFICATION_MAP.md`](fix-my-tests/VERIFICATION_MAP.md) | Risk → test implementation plan |
+
+## Did it help?
+
+It helped if the run changed something you will do: it named a failure your suite cannot fail for, it let you delete a test after its keeper went red and came back, or it changed which test you write next. If it only restated your coverage, it did not help, and that is worth knowing too.
+
+Either way, [tell me what it changed](https://github.com/GauravAlbal/agent-skills/issues/new?template=skill-feedback.yml). A few lines are enough; submissions are public. To get notified of new releases, watch this repository (Watch → Custom → Releases).
+
+Related tools, by the problem they handle: [start here](https://github.com/GauravAlbal).
 
 ## Limits
 
